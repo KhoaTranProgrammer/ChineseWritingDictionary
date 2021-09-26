@@ -34,6 +34,11 @@
  * [1.0.0]                                                                    *
  * Sep-25-2021: Initial version                                               *
  *              - Show up main screen, set application size                   *
+ * [1.0.1]                                                                    *
+ * Sep-26-2021: Load database processing                                      *
+ *              - Create database connection                                  *
+ *              - Load database with root QQuickItem                          *
+ *              - Set context property to database                            *
  *****************************************************************************/
 
 #include <QGuiApplication>
@@ -47,6 +52,8 @@
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QtQuick>
+#include "CWD_Database.h"
+#include "CWD_DatabaseClass.h"
 
 int main(int argc, char *argv[])
 {
@@ -56,6 +63,16 @@ int main(int argc, char *argv[])
     // Set main qml screen
     view.setSource(QUrl("qrc:///main.qml"));
 
+    // Create database connection
+    if (!CWD_createConnection())
+        return EXIT_FAILURE;
+
+    // Load database with root QQuickItem
+    CWD_DatabaseClass myDataBase(view.rootObject());
+    myDataBase.start();
+
+    // Set context property to database
+    view.engine()->rootContext()->setContextProperty("myDataBase", &myDataBase);
 
     // Set application size
     view.setMinimumSize(QSize(720*0.75, 1080*0.75));
