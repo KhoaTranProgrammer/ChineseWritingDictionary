@@ -4,5 +4,6 @@
         <file>main.cpp</file>
         <file>res/str/String_GUI.js</file>
         <file>res/img/ic_search.png</file>
+        <file>CWD_SearchType.qml</file>
     </qresource>
 </RCC>

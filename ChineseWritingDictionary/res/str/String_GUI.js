@@ -34,6 +34,17 @@
  * [1.0.0]                                                                    *
  * Sep-25-2021: Initial version                                               *
  *              - Add app_title                                               *
+ * [1.0.1]                                                                    *
+ * Sep-26-2021: Support searching                                             *
+ *              - Add search_title, search_types                              *
  *****************************************************************************/
 
 var app_title = "Chinese Writing Dictionary"
+
+var search_title = "Search by"
+var search_types = [
+   "Chinese", "Type Chinese Word",
+   "Pinyin", "Type Pinyin",
+   "Vietnamese", "Type Vietnamese Word",
+   "English", "Type English Word"
+]

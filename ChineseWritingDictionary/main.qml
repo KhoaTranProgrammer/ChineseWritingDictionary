@@ -37,6 +37,9 @@
  *                Search Result Area                                          *
  *              - Set Application title in Header area                        *
  *              - Implement TextField to input string in Search box area      *
+ * [1.0.1]                                                                    *
+ * Sep-26-2021: Support searching                                             *
+ *              - Add GUI supporting user to select the type of search        *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -47,6 +50,9 @@ Rectangle {
     id: id_root
     anchors.fill: parent
     color: "black"
+
+    // Variable to hold search type
+    property string searchType
 
     // Header area
     Rectangle {
@@ -117,6 +123,47 @@ Rectangle {
                 onTextChanged: {
 
                 }
+            }
+        }
+
+        Rectangle {
+            id: id_searchBy
+            anchors {
+                left: parent.left
+                top: id_searchIcon.bottom
+                bottom: parent.bottom
+            }
+            width: parent.width * 0.2
+            color: "transparent"
+
+            Text {
+                anchors.centerIn: parent
+
+                text: qsTr(String_GUI.search_title)
+                font.family: "Helvetica"
+                font.pointSize: parent.height * 0.4
+                color: "white"
+            }
+        }
+
+        CWD_SearchType {
+            id: id_searchTypeArea
+
+            anchors {
+                bottom: parent.bottom
+                left: id_searchBy.right
+                right: parent.right
+                top: id_searchIcon.bottom
+            }
+
+            onSelected: {
+                id_textFieldSearch.placeholderText = p_textFieldGuide
+                id_root.searchType = p_curType
+            }
+
+            Component.onCompleted: {
+                id_textFieldSearch.placeholderText = p_textFieldGuide
+                id_root.searchType = p_curType
             }
         }
     }
