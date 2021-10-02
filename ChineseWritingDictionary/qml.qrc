@@ -7,5 +7,7 @@
         <file>CWD_SearchType.qml</file>
         <file>res/raw/definitions.txt</file>
         <file>CWD_SearchResult.qml</file>
+        <file>CWD_Detail.qml</file>
+        <file>res/img/ic_arrow_back.png</file>
     </qresource>
 </RCC>

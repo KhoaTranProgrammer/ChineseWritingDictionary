@@ -45,6 +45,12 @@
  *              - Add GUI CWD_SearchResult                                    *
  *              - Store the list of search result, clear search data          *
  *              - Function to add 1 record to ListView                        *
+ * [1.0.3]                                                                    *
+ * Oct-02-2021: Load Detail screen                                            *
+ *              - Process onItemClicked inside CWD_SearchResult               *
+ *              - Using Loader to load CWD_Detail.qml                         *
+ *              - Loader to load Detail screen                                *
+ *              - Function to close Detail screen                             *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -191,6 +197,21 @@ Rectangle {
             Component.onCompleted: {
                 initDisplay(id_listPlugins)
             }
+
+            onItemClicked: {
+                id_loader.source = "CWD_Detail.qml"
+                var scene = null
+                scene = id_loader.item
+                scene.parent = id_root
+                scene.anchors.fill = id_root
+                scene.p_hanzi = id_searchResult.p_hanzi
+                scene.p_trad = id_searchResult.p_trad
+                scene.p_pinyin = id_searchResult.p_pinyin
+                scene.p_engMeaning = id_searchResult.p_engMeaning
+                scene.p_vietMeaning = id_searchResult.p_vietMeaning
+                scene.close.connect(closeLoader)
+                id_searchResultArea.enabled = false
+            }
         }
     }
 
@@ -215,5 +236,16 @@ Rectangle {
 
         // Recalculate ContentHeight
         id_searchResult.calContentHeight()
+    }
+
+    // Loader to load Detail screen
+    Loader {
+        id: id_loader
+    }
+
+    // Function to close Detail screen
+    function closeLoader() {
+        id_loader.source = ""
+        id_searchResultArea.enabled = true
     }
 }
