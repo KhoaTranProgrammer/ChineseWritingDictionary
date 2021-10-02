@@ -34,6 +34,10 @@
  * [1.0.0]                                                                    *
  * Sep-26-2021: Initial version                                               *
  *              - Implement CWD_DatabaseClass/addWord/run                     *
+ * [1.0.1]                                                                    *
+ * Oct-02-2021: Get searching result                                          *
+ *              - Implement slot getWordMatches                               *
+ *              - Support searching by English                                *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -130,4 +134,36 @@ void CWD_DatabaseClass::addWord(int id, QString simplifyChi, QString traditional
                + ", " + "'" + engdef + "'"
                + ", " + "'" + vietdef + "'"
                + ")");
+}
+
+void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
+{
+#if CWD_DEBUG
+    qDebug() << "getWordMatches: " << pattern << "," << type;
+#endif
+    CWD_createConnection();
+    QSqlQuery query;
+
+    if ( type == CWD_GlobalVariableClass::ENGLISH_TYPE ) {
+        query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
+                     CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'% " + pattern + "%'" + " OR " +
+                     CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'/" + pattern + "%'");
+    }
+
+    // Clear data
+    QMetaObject::invokeMethod(this->m_rootObject, "clearData");
+
+    // Send data to GUI to show up
+    while (query.next()) {
+#if CWD_DEBUG
+        qDebug() << query.value(0).toString() << query.value(1).toString() << query.value(2).toString()  << query.value(3).toString() << query.value(4).toString() << query.value(5).toString();
+#endif
+        QMetaObject::invokeMethod(this->m_rootObject, "addOneRecord",
+                                  Q_ARG(QVariant, query.value(1).toString()),
+                                  Q_ARG(QVariant, query.value(2).toString()),
+                                  Q_ARG(QVariant, query.value(3).toString()),
+                                  Q_ARG(QVariant, query.value(5).toString()),
+                                  Q_ARG(QVariant, query.value(4).toString())
+                                  );
+    }
 }

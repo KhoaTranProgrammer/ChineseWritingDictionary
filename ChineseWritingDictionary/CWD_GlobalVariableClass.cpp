@@ -34,6 +34,9 @@
  * [1.0.0]                                                                    *
  * Sep-26-2021: Initial version                                               *
  *              - Define the name of database and column name                 *
+ * [1.0.1]                                                                    *
+ * Oct-02-2021: Support searching by English                                  *
+ *              - Define ENGLISH_TYPE                                         *
  *****************************************************************************/
 
 #include "CWD_GlobalVariableClass.h"
@@ -44,3 +47,5 @@ QString CWD_GlobalVariableClass::COL_PINYIN = "pinyin";
 QString CWD_GlobalVariableClass::COL_ENGMEAN = "englishmeaning";
 QString CWD_GlobalVariableClass::COL_VIEMEAN = "vietmeaning";
 QString CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE = "CWD_FTSdictionary";
+
+QString CWD_GlobalVariableClass::ENGLISH_TYPE = "English";

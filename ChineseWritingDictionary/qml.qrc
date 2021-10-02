@@ -6,5 +6,6 @@
         <file>res/img/ic_search.png</file>
         <file>CWD_SearchType.qml</file>
         <file>res/raw/definitions.txt</file>
+        <file>CWD_SearchResult.qml</file>
     </qresource>
 </RCC>

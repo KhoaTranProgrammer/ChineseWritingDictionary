@@ -40,6 +40,11 @@
  * [1.0.1]                                                                    *
  * Sep-26-2021: Support searching                                             *
  *              - Add GUI supporting user to select the type of search        *
+ * [1.0.2]                                                                    *
+ * Oct-02-2021: Support display Search Result                                 *
+ *              - Add GUI CWD_SearchResult                                    *
+ *              - Store the list of search result, clear search data          *
+ *              - Function to add 1 record to ListView                        *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -121,7 +126,7 @@ Rectangle {
                 font.pointSize: parent.height / 2
 
                 onTextChanged: {
-
+                    myDataBase.getWordMatches(id_textFieldSearch.text, id_root.searchType)
                 }
             }
         }
@@ -178,5 +183,37 @@ Rectangle {
             bottom: parent.bottom
         }
         color: "#B3E5FC"
+
+        CWD_SearchResult {
+            id: id_searchResult
+            anchors.fill: parent
+
+            Component.onCompleted: {
+                initDisplay(id_listPlugins)
+            }
+        }
+    }
+
+    // Store the list of search result
+    ListModel {
+        id: id_listPlugins
+    }
+
+    // Clear search data
+    function clearData() {
+        id_listPlugins.clear()
+    }
+
+    // Function to add 1 record to ListView
+    function addOneRecord(chinese_data, traditional_data, pinyin_data, viet_data, eng_data) {
+        id_listPlugins.append({"chinese_data": chinese_data,
+                               "traditional_data": traditional_data,
+                               "pinyin_data": pinyin_data,
+                               "viet_data": viet_data,
+                               "eng_data": eng_data
+                              })
+
+        // Recalculate ContentHeight
+        id_searchResult.calContentHeight()
     }
 }

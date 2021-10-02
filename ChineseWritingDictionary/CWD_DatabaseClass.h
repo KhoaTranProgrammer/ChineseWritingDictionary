@@ -35,6 +35,9 @@
  * Sep-26-2021: Initial version                                               *
  *              - Create class CWD_DatabaseClass base on QThread              *
  *              - Declare CWD_DatabaseClass/addWord/run                       *
+ * [1.0.1]                                                                    *
+ * Oct-02-2021: Get searching result                                          *
+ *              - Add slot getWordMatches                                     *
  *****************************************************************************/
 
 #ifndef CWD_DATABASECLASS_H
@@ -55,6 +58,9 @@ class CWD_DatabaseClass : public QThread
     Q_OBJECT
 public:
     CWD_DatabaseClass(QQuickItem* rootObject);
+
+public slots:
+    void getWordMatches(QString pattern, QString type);
 
 private:
     void addWord(int id, QString simplifyChi, QString traditionalChi, QString definition, QString engdef, QString vietdef);

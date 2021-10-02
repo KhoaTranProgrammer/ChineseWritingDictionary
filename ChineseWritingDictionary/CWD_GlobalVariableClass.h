@@ -34,6 +34,9 @@
  * [1.0.0]                                                                    *
  * Sep-26-2021: Initial version                                               *
  *              - Define the name of database and column name                 *
+ * [1.0.1]                                                                    *
+ * Oct-02-2021: Support searching by English                                  *
+ *              - Declare ENGLISH_TYPE                                        *
  *****************************************************************************/
 
 #ifndef CWD_GLOBALVARIABLECLASS_H
@@ -52,6 +55,9 @@ public:
     static QString COL_VIEMEAN;
     static QString COL_TIMESTAMP;
     static QString FTS_VIRTUAL_TABLE;
+
+    // Search types
+    static QString ENGLISH_TYPE;
 };
 
 #endif // CWD_GLOBALVARIABLECLASS_H
