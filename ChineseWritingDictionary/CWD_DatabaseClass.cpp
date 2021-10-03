@@ -38,6 +38,10 @@
  * Oct-02-2021: Get searching result                                          *
  *              - Implement slot getWordMatches                               *
  *              - Support searching by English                                *
+ * [1.0.2]                                                                    *
+ * Oct-03-2021: Improve English searching                                     *
+ *              - Implement searchByEnglish function for English searching    *
+ *              - Only get result for full word matching                      *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -145,9 +149,7 @@ void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
     QSqlQuery query;
 
     if ( type == CWD_GlobalVariableClass::ENGLISH_TYPE ) {
-        query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
-                     CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'% " + pattern + "%'" + " OR " +
-                     CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'/" + pattern + "%'");
+        query = searchByEnglish(pattern);
     }
 
     // Clear data
@@ -166,4 +168,15 @@ void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
                                   Q_ARG(QVariant, query.value(4).toString())
                                   );
     }
+}
+
+QSqlQuery CWD_DatabaseClass::searchByEnglish(QString pattern)
+{
+    QSqlQuery query;
+
+    query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
+                 CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'%/" + pattern + "/%'"
+              );
+
+    return query;
 }

@@ -38,6 +38,9 @@
  * [1.0.1]                                                                    *
  * Oct-02-2021: Get searching result                                          *
  *              - Add slot getWordMatches                                     *
+ * [1.0.2]                                                                    *
+ * Oct-03-2021: Improve English searching                                     *
+ *              - Add searchByEnglish function for English searching          *
  *****************************************************************************/
 
 #ifndef CWD_DATABASECLASS_H
@@ -64,6 +67,7 @@ public slots:
 
 private:
     void addWord(int id, QString simplifyChi, QString traditionalChi, QString definition, QString engdef, QString vietdef);
+    QSqlQuery searchByEnglish(QString pattern);
 
     QSqlRelationalTableModel model;
     void run() override;
