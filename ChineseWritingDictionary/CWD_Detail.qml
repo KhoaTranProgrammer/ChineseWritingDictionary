@@ -35,9 +35,15 @@
  * Oct-02-2021: Initial version                                               *
  *              - Add Header area, signal close, Hanzi Area, Meaning Area     *
  *              - Display Hanzi, traditional, pinyin, english, vietnamese     *
+ * [1.0.1]                                                                    *
+ * Oct-04-2021: Use text define in String_GUI.js                              *
+ *              - Import res/str/String_GUI.js                                *
+ *              - Apply for title and Meaning Area                            *
  *****************************************************************************/
 
 import QtQuick 2.0
+import "res/str/String_GUI.js" as String_GUI
+
 
 Item {
     id: id_root
@@ -97,7 +103,7 @@ Item {
                 left: id_backButton.right
             }
 
-            text: "Detail"
+            text: qsTr(String_GUI.detail_title)
             font.family: "Helvetica"
             font.pointSize: parent.height / 2
             color: "white"
@@ -159,7 +165,7 @@ Item {
                 width: parent.width * 0.2
                 color: "#448AFF"
 
-                text: "Traditional:"
+                text: qsTr(String_GUI.detail_trad)
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.3
             }
@@ -201,7 +207,7 @@ Item {
                 width: parent.width * 0.15
                 color: "#448AFF"
 
-                text: "Pinyin:"
+                text: qsTr(String_GUI.detail_pinyin)
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.3
             }
@@ -243,7 +249,7 @@ Item {
                 height: parent.height * 0.3
                 color: "#448AFF"
 
-                text: "Vietnamese Meaning:"
+                text: qsTr(String_GUI.detail_vietnamese)
                 font.family: "Helvetica"
                 font.pointSize: id_static_pinyin.font.pointSize
             }
@@ -287,7 +293,7 @@ Item {
                 height: parent.height * 0.3
                 color: "#448AFF"
 
-                text: "English Meaning:"
+                text: qsTr(String_GUI.detail_english)
                 font.family: "Helvetica"
                 font.pointSize: id_static_pinyin.font.pointSize
             }
@@ -310,4 +316,5 @@ Item {
             }
         }
     }
+
 }

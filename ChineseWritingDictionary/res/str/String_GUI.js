@@ -37,6 +37,10 @@
  * [1.0.1]                                                                    *
  * Sep-26-2021: Support searching                                             *
  *              - Add search_title, search_types                              *
+ * [1.0.2]                                                                    *
+ * Oct-04-2021: Support detail                                                *
+ *              - Add detail_title, detail_trad, detail_pinyin,               *
+ *                detail_vietnamese, detail_english                           *
  *****************************************************************************/
 
 var app_title = "Chinese Writing Dictionary"
@@ -48,3 +52,9 @@ var search_types = [
    "Vietnamese", "Type Vietnamese Word",
    "English", "Type English Word"
 ]
+
+var detail_title = "Detail"
+var detail_trad = "Traditional"
+var detail_pinyin = "Pinyin"
+var detail_vietnamese = "Vietnamese Meaning"
+var detail_english = "English Meaning"
