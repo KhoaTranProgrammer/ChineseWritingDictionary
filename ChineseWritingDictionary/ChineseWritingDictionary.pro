@@ -58,7 +58,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     CWD_DatabaseClass.cpp \
-    CWD_GlobalVariableClass.cpp
+    CWD_GlobalVariableClass.cpp \
+    CWD_WritingCharacter.cpp \
+    CWD_WritingImage.cpp
 
 RESOURCES += qml.qrc
 
@@ -78,7 +80,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     CWD_DatabaseClass.h \
     CWD_GlobalVariableClass.h \
-    CWD_Database.h
+    CWD_Database.h \
+    CWD_WritingCharacter.h \
+    CWD_WritingImage.h
 
 debug {
   DEFINES += CWD_DEBUG

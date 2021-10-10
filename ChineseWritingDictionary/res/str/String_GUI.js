@@ -41,6 +41,9 @@
  * Oct-04-2021: Support detail                                                *
  *              - Add detail_title, detail_trad, detail_pinyin,               *
  *                detail_vietnamese, detail_english                           *
+ * [1.0.2]                                                                    *
+ * Oct-04-2021: Support For Stroke                                            *
+ *              - Add detail_writing_title                                    *
  *****************************************************************************/
 
 var app_title = "Chinese Writing Dictionary"
@@ -58,3 +61,4 @@ var detail_trad = "Traditional"
 var detail_pinyin = "Pinyin"
 var detail_vietnamese = "Vietnamese Meaning"
 var detail_english = "English Meaning"
+var detail_writing_title = "How to write?"

@@ -39,6 +39,11 @@
  *              - Create database connection                                  *
  *              - Load database with root QQuickItem                          *
  *              - Set context property to database                            *
+ * [1.0.2]                                                                    *
+ * Oct-04-2021: Support Display Strokes                                       *
+ *              - Add header CWD_WritingCharacter.h                           *
+ *              - Set context property to myWriting                           *
+ *              - Register CWD_WritingImage QML type                          *
  *****************************************************************************/
 
 #include <QGuiApplication>
@@ -54,11 +59,16 @@
 #include <QtQuick>
 #include "CWD_Database.h"
 #include "CWD_DatabaseClass.h"
+#include "CWD_WritingCharacter.h"
+#include "CWD_WritingImage.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc,argv);
     QQuickView view;
+
+    // Register CWD_WritingImage QML type
+    qmlRegisterType<CWD_WritingImage>("CWD_WritingImage", 1, 0, "CWD_WritingImage");
 
     // Set main qml screen
     view.setSource(QUrl("qrc:///main.qml"));
@@ -73,6 +83,10 @@ int main(int argc, char *argv[])
 
     // Set context property to database
     view.engine()->rootContext()->setContextProperty("myDataBase", &myDataBase);
+
+    // Set context property to myWriting
+    CWD_WritingCharacter myWriting;
+    view.engine()->rootContext()->setContextProperty("myWriting", &myWriting);
 
     // Set application size
     view.setMinimumSize(QSize(720*0.75, 1080*0.75));

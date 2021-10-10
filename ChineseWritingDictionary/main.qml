@@ -51,6 +51,9 @@
  *              - Using Loader to load CWD_Detail.qml                         *
  *              - Loader to load Detail screen                                *
  *              - Function to close Detail screen                             *
+ * [1.0.4]                                                                    *
+ * Oct-04-2021: Support Drawing Strokes Of Character                          *
+ *              - Call initDetail of CWD_Detail.qml                           *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -210,6 +213,7 @@ Rectangle {
                 scene.p_engMeaning = id_searchResult.p_engMeaning
                 scene.p_vietMeaning = id_searchResult.p_vietMeaning
                 scene.close.connect(closeLoader)
+                scene.initDetail()
                 id_searchResultArea.enabled = false
             }
         }

@@ -39,11 +39,14 @@
  * Oct-04-2021: Use text define in String_GUI.js                              *
  *              - Import res/str/String_GUI.js                                *
  *              - Apply for title and Meaning Area                            *
+ * [1.0.2]                                                                    *
+ * Oct-10-2021: Add strokes display                                           *
+ *              - Add Drawing Area, Add Timer to draw 1 stroke each 500ms     *
  *****************************************************************************/
 
 import QtQuick 2.0
+import CWD_WritingImage 1.0
 import "res/str/String_GUI.js" as String_GUI
-
 
 Item {
     id: id_root
@@ -317,4 +320,118 @@ Item {
         }
     }
 
+    // Drawing Area
+    Rectangle {
+        id: id_drawingArea
+
+        anchors {
+            top: id_meaningArea.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        color: "#B3E5FC"
+
+        Rectangle {
+            id: id_drawingHeader
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.height * 0.15
+            color: "#448AFF"
+
+            Text {
+                anchors {
+                    left: parent.left
+                    verticalCenter: parent.verticalCenter
+                }
+                color: "white"
+
+                text: qsTr(String_GUI.detail_writing_title)
+                font.family: "Helvetica"
+                font.pointSize: parent.height * 0.5
+            }
+        }
+
+        Rectangle {
+            id: id_drawingCharacters
+            anchors {
+                top: id_drawingHeader.bottom
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.height * 0.15
+            color: "transparent"
+
+            CWD_CharacterList {
+                id: id_ctrCharacterList
+                anchors.fill: parent
+
+                onSelected: {
+                    myWriting.drawForOneCharacter(p_curChar)
+                    id_ctrSymbolList.clearList()
+                    id_drawingTimer.running = true
+                }
+            }
+        }
+
+        Rectangle {
+            id: id_displayCharArea
+            anchors {
+                top: id_drawingCharacters.bottom
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.height * 0.4
+            color: "transparent"
+
+            CWD_WritingImage {
+                id: id_displayCharImage
+                anchors.centerIn: id_displayCharArea
+                anchors.fill: id_displayCharArea
+            }
+        }
+
+        Rectangle {
+            id: id_displaySymbolArea
+            anchors {
+                top: id_displayCharArea.bottom
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.height * 0.3
+            color: "transparent"
+
+            CWD_SymbolList {
+                id: id_ctrSymbolList
+                anchors.fill: parent
+            }
+        }
+    }
+
+    Timer {
+        id: id_drawingTimer
+        interval: 500
+        running: false
+        repeat: true
+        onTriggered: {
+            id_displayCharImage.image = myWriting.convertSymbolToAccumQImage()
+            if ( false === myWriting.getOnePass()) id_ctrSymbolList.addItem()
+            myWriting.nextSymbol()
+        }
+    }
+
+    // Function get characters that are supported to draw
+    function initDetail() {
+        // Read all hanzi characters from input
+        myWriting.readAllCharacters(p_hanzi)
+
+        // Get characters that are supported to draw
+        var supportedChars = myWriting.getCharacters()
+        for (var i = 0; i < supportedChars.length; i++) {
+            id_ctrCharacterList.addItem(supportedChars[i])
+        }
+    }
 }

@@ -9,5 +9,10 @@
         <file>CWD_SearchResult.qml</file>
         <file>CWD_Detail.qml</file>
         <file>res/img/ic_arrow_back.png</file>
+        <file>CWD_CharacterList.qml</file>
+        <file>res/raw/chars.txt</file>
+        <file>res/raw/data</file>
+        <file>res/raw/header</file>
+        <file>CWD_SymbolList.qml</file>
     </qresource>
 </RCC>
