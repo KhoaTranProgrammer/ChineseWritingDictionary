@@ -42,6 +42,9 @@
  * Oct-03-2021: Improve English searching                                     *
  *              - Implement searchByEnglish function for English searching    *
  *              - Only get result for full word matching                      *
+ * [1.0.3]                                                                    *
+ * Nov-21-2021: Fix Sql Connection Issue                                      *
+ *              - Only add data to database when state is CWD_ADDING          *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -94,11 +97,12 @@ void CWD_DatabaseClass::run()
             if (count == 0) {
                 while (!in.atEnd())
                 {
-                  QString line = in.readLine();
-                  QStringList strings = line.split("\t");
-                  if(strings.size() == 5) {
-                      addWord(++count, strings[1], strings[0], strings[2], strings[3], strings[4]);
-                  }
+                    QString line = in.readLine();
+                    QStringList strings = line.split("\t");
+                    if(strings.size() == 5) {
+                        if (mDBStatus != CWD_ADDING) break;
+                        addWord(++count, strings[1], strings[0], strings[2], strings[3], strings[4]);
+                    }
                 }
             } else {
                 // This is second time add database
@@ -113,6 +117,7 @@ void CWD_DatabaseClass::run()
                     QString line = in.readLine();
                     QStringList strings = line.split("\t");
                     if(strings.size() == 5) {
+                        if (mDBStatus != CWD_ADDING) break;
                         addWord(++count, strings[1], strings[0], strings[2], strings[3], strings[4]);
                     }
                 }
@@ -129,44 +134,55 @@ void CWD_DatabaseClass::addWord(int id, QString simplifyChi, QString traditional
 #if CWD_DEBUG
     qDebug() << id << " - " << simplifyChi << " - " << traditionalChi;
 #endif
-    QSqlQuery query;
-    query.exec("insert into " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " values(" +
-               QString::number(id)
-               + ", " + "'" + simplifyChi + "'"
-               + ", " + "'" + traditionalChi + "'"
-               + ", " + "'" + definition + "'"
-               + ", " + "'" + engdef + "'"
-               + ", " + "'" + vietdef + "'"
-               + ")");
+    if (mDBStatus == CWD_ADDING) {
+        QSqlQuery query;
+        query.exec("insert into " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " values(" +
+                   QString::number(id)
+                   + ", " + "'" + simplifyChi + "'"
+                   + ", " + "'" + traditionalChi + "'"
+                   + ", " + "'" + definition + "'"
+                   + ", " + "'" + engdef + "'"
+                   + ", " + "'" + vietdef + "'"
+                   + ")");
+    }
 }
 
 void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
 {
+    if (pattern != "")
+    {
+        mDBStatus = CWD_SEARCHING;
+        QThread::msleep(1000);
 #if CWD_DEBUG
     qDebug() << "getWordMatches: " << pattern << "," << type;
 #endif
-    CWD_createConnection();
-    QSqlQuery query;
+        CWD_createConnection();
+        QSqlQuery query;
 
-    if ( type == CWD_GlobalVariableClass::ENGLISH_TYPE ) {
-        query = searchByEnglish(pattern);
-    }
+        if ( type == CWD_GlobalVariableClass::ENGLISH_TYPE ) {
+            query = searchByEnglish(pattern);
+        }
 
-    // Clear data
-    QMetaObject::invokeMethod(this->m_rootObject, "clearData");
+        // Clear data
+        QMetaObject::invokeMethod(this->m_rootObject, "clearData");
 
-    // Send data to GUI to show up
-    while (query.next()) {
-#if CWD_DEBUG
-        qDebug() << query.value(0).toString() << query.value(1).toString() << query.value(2).toString()  << query.value(3).toString() << query.value(4).toString() << query.value(5).toString();
-#endif
-        QMetaObject::invokeMethod(this->m_rootObject, "addOneRecord",
-                                  Q_ARG(QVariant, query.value(1).toString()),
-                                  Q_ARG(QVariant, query.value(2).toString()),
-                                  Q_ARG(QVariant, query.value(3).toString()),
-                                  Q_ARG(QVariant, query.value(5).toString()),
-                                  Q_ARG(QVariant, query.value(4).toString())
-                                  );
+        // Send data to GUI to show up
+        while (query.next()) {
+    #if CWD_DEBUG
+            qDebug() << query.value(0).toString() << query.value(1).toString() << query.value(2).toString()  << query.value(3).toString() << query.value(4).toString() << query.value(5).toString();
+    #endif
+            QMetaObject::invokeMethod(this->m_rootObject, "addOneRecord",
+                                      Q_ARG(QVariant, query.value(1).toString()),
+                                      Q_ARG(QVariant, query.value(2).toString()),
+                                      Q_ARG(QVariant, query.value(3).toString()),
+                                      Q_ARG(QVariant, query.value(5).toString()),
+                                      Q_ARG(QVariant, query.value(4).toString())
+                                      );
+        }
+
+        mDBStatus = CWD_ADDING;
+        QThread::msleep(1000);
+        this->start();
     }
 }
 

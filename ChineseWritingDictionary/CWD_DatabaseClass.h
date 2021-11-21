@@ -41,6 +41,9 @@
  * [1.0.2]                                                                    *
  * Oct-03-2021: Improve English searching                                     *
  *              - Add searchByEnglish function for English searching          *
+ * [1.0.3]                                                                    *
+ * Nov-21-2021: Fix Sql Connection Issue                                      *
+ *              - Add enum CWD_DBSTATE and variable mDBStatus                 *
  *****************************************************************************/
 
 #ifndef CWD_DATABASECLASS_H
@@ -62,6 +65,12 @@ class CWD_DatabaseClass : public QThread
 public:
     CWD_DatabaseClass(QQuickItem* rootObject);
 
+    enum CWD_DBSTATE
+    {
+        CWD_ADDING,        // Adding data to database
+        CWD_SEARCHING,     // Search data
+    };
+
 public slots:
     void getWordMatches(QString pattern, QString type);
 
@@ -73,6 +82,7 @@ private:
     void run() override;
 
     QQuickItem* m_rootObject;
+    CWD_DBSTATE mDBStatus = CWD_ADDING;
 };
 
 #endif // CWD_DATABASECLASS_H

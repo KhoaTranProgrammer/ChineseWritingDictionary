@@ -54,6 +54,9 @@
  * [1.0.4]                                                                    *
  * Oct-04-2021: Support Drawing Strokes Of Character                          *
  *              - Call initDetail of CWD_Detail.qml                           *
+ * [1.0.5]                                                                    *
+ * Nov-21-2021: Fix Sql Connection Issue                                      *
+ *              - Add Timer to process searching after complete type for 1s   *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -67,6 +70,7 @@ Rectangle {
 
     // Variable to hold search type
     property string searchType
+    property string currentSearchString: ""
 
     // Header area
     Rectangle {
@@ -135,7 +139,8 @@ Rectangle {
                 font.pointSize: parent.height / 2
 
                 onTextChanged: {
-                    myDataBase.getWordMatches(id_textFieldSearch.text, id_root.searchType)
+                    if( id_searchingTimer.running == false)
+                        id_searchingTimer.start()
                 }
             }
         }
@@ -251,5 +256,19 @@ Rectangle {
     function closeLoader() {
         id_loader.source = ""
         id_searchResultArea.enabled = true
+    }
+
+    Timer {
+        id: id_searchingTimer
+        interval: 1000; running: false; repeat: true
+        onTriggered: {
+            if (id_root.currentSearchString === id_textFieldSearch.text) {
+                // Start searching
+                id_searchingTimer.stop()
+                myDataBase.getWordMatches(id_textFieldSearch.text, id_root.searchType)
+            } else {
+                id_root.currentSearchString = id_textFieldSearch.text
+            }
+        }
     }
 }
