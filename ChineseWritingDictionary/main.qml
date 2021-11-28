@@ -57,6 +57,10 @@
  * [1.0.5]                                                                    *
  * Nov-21-2021: Fix Sql Connection Issue                                      *
  *              - Add Timer to process searching after complete type for 1s   *
+ * [1.0.6]                                                                    *
+ * Nov-28-2021: Support Information                                           *
+ *              - Information Area with CWD_Information                       *
+ *              - Search Result Area set on top of Information Area           *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -194,7 +198,7 @@ Rectangle {
             left: parent.left
             right: parent.right
             top: id_searchBoxArea.bottom
-            bottom: parent.bottom
+            bottom: id_informationArea.top
         }
         color: "#B3E5FC"
 
@@ -219,6 +223,32 @@ Rectangle {
                 scene.p_vietMeaning = id_searchResult.p_vietMeaning
                 scene.close.connect(closeLoader)
                 scene.initDetail()
+                id_searchResultArea.enabled = false
+            }
+        }
+    }
+
+    // Information Area
+    Rectangle {
+        id: id_informationArea
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: id_root.height * 0.1
+
+        CWD_Information {
+            id: id_information
+            anchors.fill: parent
+
+            onSelected: {
+                id_loader.source = p_qmlFile
+                var scene = null
+                scene = id_loader.item
+                scene.parent = id_root
+                scene.anchors.fill = id_root
+                scene.close.connect(closeLoader)
                 id_searchResultArea.enabled = false
             }
         }

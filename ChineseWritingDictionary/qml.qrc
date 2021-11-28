@@ -14,5 +14,8 @@
         <file>res/raw/data</file>
         <file>res/raw/header</file>
         <file>CWD_SymbolList.qml</file>
+        <file>res/img/ic_radical.png</file>
+        <file>CWD_Information.qml</file>
+        <file>CWD_Radical.qml</file>
     </qresource>
 </RCC>
