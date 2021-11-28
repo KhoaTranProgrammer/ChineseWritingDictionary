@@ -36,6 +36,9 @@
  *              - Define Model and delegate for information types             *
  *              - Load information types from String_GUI.js                   *
  *              - Support Radical                                             *
+ * [1.0.1]                                                                    *
+ * Nov-28-2021: Auto add information                                          *
+ *              - Change the loop to auto adding information screen           *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -50,7 +53,9 @@ Item {
 
     // Load Information types when Component is in Completed state
     Component.onCompleted: {
-        id_listOfInformation.append({"img": String_GUI.information_types[0], "qmlFile": String_GUI.information_types[1]})
+        for(var i = 0; i < String_GUI.information_types.length / 2; i++) {
+            id_listOfInformation.append({"img": String_GUI.information_types[i * 2], "qmlFile": String_GUI.information_types[i * 2 + 1]})
+        }
     }
 
     // Background is set as transparent

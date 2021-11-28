@@ -41,14 +41,18 @@
  * Oct-04-2021: Support detail                                                *
  *              - Add detail_title, detail_trad, detail_pinyin,               *
  *                detail_vietnamese, detail_english                           *
- * [1.0.2]                                                                    *
+ * [1.0.3]                                                                    *
  * Oct-04-2021: Support For Stroke                                            *
  *              - Add detail_writing_title                                    *
- * [1.0.3]                                                                    *
+ * [1.0.4]                                                                    *
  * Nov-28-2021: Support Information with Radical                              *
  *              - Add information_types                                       *
  *              - Add radicals_list, radicals_stroke, radicals_pinyin,        *
  *                radicals_english                                            *
+ * [1.0.5]                                                                    *
+ * Nov-28-2021: Support Information With Introduction                         *
+ *              - Append information_types                                    *
+ *              - Add introduction_english                                    *
  *****************************************************************************/
 
 var app_title = "Chinese Writing Dictionary"
@@ -69,7 +73,8 @@ var detail_english = "English Meaning"
 var detail_writing_title = "How to write?"
 
 var information_types = [
-    "ic_radical.png", "CWD_Radical.qml"
+    "ic_radical.png", "CWD_Radical.qml",
+    "ic_info.png", "CWD_Introduction.qml"
 ]
 
 var radicals_list = [
@@ -151,3 +156,11 @@ var radicals_english = [
     "dragon", "turtle",
     "flute",
 ]
+
+var introduction_english =
+"How to write Chinese words are the most difficult, and also are the most interesting of studying Chinese language.\nFor this purpose, \'Chinese Writing Dictionary\' application is created to introduce how to write Chinese words." +
+"\nThis is free software, refers the database from website: https://www.mdbg.net/chindict/chindict.php?page=cedict and revise to add Vietnamese meaning." +
+"\nSupports to look up by 4 methods: Chinese, Pinyin, English, Vietnamese." +
+"\nGuides to write for more than 5000 Chinese characters." +
+"\n\nIf you have any comment/concern, please contact us via: tudienchuviettienghoa@gmail.com"
+
