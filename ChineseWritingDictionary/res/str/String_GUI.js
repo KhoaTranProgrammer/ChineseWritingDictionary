@@ -53,6 +53,9 @@
  * Nov-28-2021: Support Information With Introduction                         *
  *              - Append information_types                                    *
  *              - Add introduction_english                                    *
+ * [1.0.6]                                                                    *
+ * Dec-01-2021: Support Information With History                              *
+ *              - Append information_types                                    *
  *****************************************************************************/
 
 var app_title = "Chinese Writing Dictionary"
@@ -73,6 +76,7 @@ var detail_english = "English Meaning"
 var detail_writing_title = "How to write?"
 
 var information_types = [
+    "ic_history.png", "CWD_History.qml",
     "ic_radical.png", "CWD_Radical.qml",
     "ic_info.png", "CWD_Introduction.qml"
 ]

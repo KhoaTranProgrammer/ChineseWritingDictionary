@@ -61,10 +61,15 @@
  * Nov-28-2021: Support Information                                           *
  *              - Information Area with CWD_Information                       *
  *              - Search Result Area set on top of Information Area           *
+ * [1.0.7]                                                                    *
+ * Dec-01-2021: Support History                                               *
+ *              - Add CWD_HistoryDatabase QML object                          *
+ *              - Add word to history when user clicks search result          *
  *****************************************************************************/
 
 import QtQuick 2.9
 import QtQuick.Controls 1.4
+import CWD_HistoryDatabase 1.0
 import "res/str/String_GUI.js" as String_GUI
 
 Rectangle {
@@ -224,6 +229,14 @@ Rectangle {
                 scene.close.connect(closeLoader)
                 scene.initDetail()
                 id_searchResultArea.enabled = false
+
+                // Add word to history
+                id_history.addWord(id_searchResult.p_hanzi,
+                                   id_searchResult.p_trad,
+                                   id_searchResult.p_pinyin,
+                                   id_searchResult.p_engMeaning,
+                                   id_searchResult.p_vietMeaning
+                                   )
             }
         }
     }
@@ -252,6 +265,11 @@ Rectangle {
                 id_searchResultArea.enabled = false
             }
         }
+    }
+
+    // Add CWD_HistoryDatabase QML object
+    CWD_HistoryDatabase {
+        id: id_history
     }
 
     // Store the list of search result

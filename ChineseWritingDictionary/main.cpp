@@ -44,6 +44,9 @@
  *              - Add header CWD_WritingCharacter.h                           *
  *              - Set context property to myWriting                           *
  *              - Register CWD_WritingImage QML type                          *
+ * [1.0.3]                                                                    *
+ * Dec-01-2021: Support History                                               *
+ *              - Add CWD_HistoryDatabase QML type                            *
  *****************************************************************************/
 
 #include <QGuiApplication>
@@ -61,6 +64,7 @@
 #include "CWD_DatabaseClass.h"
 #include "CWD_WritingCharacter.h"
 #include "CWD_WritingImage.h"
+#include "CWD_HistoryDatabase.h"
 
 int main(int argc, char *argv[])
 {
@@ -69,6 +73,9 @@ int main(int argc, char *argv[])
 
     // Register CWD_WritingImage QML type
     qmlRegisterType<CWD_WritingImage>("CWD_WritingImage", 1, 0, "CWD_WritingImage");
+
+    // Register CWD_History QML type
+    qmlRegisterType<CWD_HistoryDatabase>("CWD_HistoryDatabase", 1, 0, "CWD_HistoryDatabase");
 
     // Set main qml screen
     view.setSource(QUrl("qrc:///main.qml"));

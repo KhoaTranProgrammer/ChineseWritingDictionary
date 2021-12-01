@@ -60,7 +60,8 @@ SOURCES += \
     CWD_DatabaseClass.cpp \
     CWD_GlobalVariableClass.cpp \
     CWD_WritingCharacter.cpp \
-    CWD_WritingImage.cpp
+    CWD_WritingImage.cpp \
+    CWD_HistoryDatabase.cpp
 
 RESOURCES += qml.qrc
 
@@ -82,7 +83,8 @@ HEADERS += \
     CWD_GlobalVariableClass.h \
     CWD_Database.h \
     CWD_WritingCharacter.h \
-    CWD_WritingImage.h
+    CWD_WritingImage.h \
+    CWD_HistoryDatabase.h
 
 debug {
   DEFINES += CWD_DEBUG

@@ -19,5 +19,8 @@
         <file>CWD_Radical.qml</file>
         <file>res/img/ic_info.png</file>
         <file>CWD_Introduction.qml</file>
+        <file>CWD_History.qml</file>
+        <file>res/img/ic_history.png</file>
+        <file>res/img/ic_history_delete.png</file>
     </qresource>
 </RCC>
