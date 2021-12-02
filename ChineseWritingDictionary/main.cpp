@@ -47,6 +47,9 @@
  * [1.0.3]                                                                    *
  * Dec-01-2021: Support History                                               *
  *              - Add CWD_HistoryDatabase QML type                            *
+ * [1.0.4]                                                                    *
+ * Dec-02-2021: Support Brush Hanzi Character                                 *
+ *              - Set Character Detection object                              *
  *****************************************************************************/
 
 #include <QGuiApplication>
@@ -65,6 +68,7 @@
 #include "CWD_WritingCharacter.h"
 #include "CWD_WritingImage.h"
 #include "CWD_HistoryDatabase.h"
+#include "CWD_CharacterDetection.h"
 
 int main(int argc, char *argv[])
 {
@@ -94,6 +98,10 @@ int main(int argc, char *argv[])
     // Set context property to myWriting
     CWD_WritingCharacter myWriting;
     view.engine()->rootContext()->setContextProperty("myWriting", &myWriting);
+
+    // Set Character Detection object
+    CWD_CharacterDetection myChaDet;
+    view.engine()->rootContext()->setContextProperty("myChaDet", &myChaDet);
 
     // Set application size
     view.setMinimumSize(QSize(720*0.75, 1080*0.75));

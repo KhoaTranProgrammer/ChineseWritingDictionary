@@ -22,5 +22,8 @@
         <file>CWD_History.qml</file>
         <file>res/img/ic_history.png</file>
         <file>res/img/ic_history_delete.png</file>
+        <file>res/raw/chinese_letter.data</file>
+        <file>res/img/ic_brush.png</file>
+        <file>CWD_BrushResultList.qml</file>
     </qresource>
 </RCC>

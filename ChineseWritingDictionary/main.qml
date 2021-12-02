@@ -65,6 +65,10 @@
  * Dec-01-2021: Support History                                               *
  *              - Add CWD_HistoryDatabase QML object                          *
  *              - Add word to history when user clicks search result          *
+ * [1.0.8]                                                                    *
+ * Dec-02-2021: Support Brush Hanzi Character                                 *
+ *              - Add Area to support option functions                        *
+ *              - Area to support brush hanzi character                       *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -270,6 +274,258 @@ Rectangle {
     // Add CWD_HistoryDatabase QML object
     CWD_HistoryDatabase {
         id: id_history
+    }
+    
+    // Area to support option functions
+    Rectangle {
+        id: id_optionarea
+        anchors {
+            right: id_root.right
+            verticalCenter: id_root.verticalCenter
+        }
+        width: id_root.width * 0.1
+        height: width
+        color: "transparent"
+
+        // Brush Button
+        Rectangle {
+            id: id_brush
+
+            property bool isSelected: false
+
+            anchors.fill: parent
+            color: "transparent"
+
+            // Image for button
+            Image {
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectFit
+                source: 'res/img/ic_brush.png'
+            }
+
+            // When user clicks
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (id_brush.isSelected === true) {
+                        id_brush.color = "transparent"
+                        id_brush.isSelected = false
+                        id_brusharea.enabled = false
+                        id_brusharea.visible = false
+                    } else {
+                        id_brush.color = "white"
+                        id_brush.isSelected = true
+                        id_brusharea.enabled = true
+                        id_brusharea.visible = true
+                    }
+                }
+            }
+        }
+    }
+
+    // Area to support brush hanzi character
+    Rectangle {
+        id: id_brusharea
+        property bool isReset: false
+        anchors {
+            bottom: id_informationArea.top
+            horizontalCenter: id_root.horizontalCenter
+        }
+        width: id_root.width * 0.6
+        height: width
+        color: "transparent"
+        visible: false
+
+        Rectangle {
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.width * 0.1
+            color: "black"
+
+            CWD_BrushResultList {
+                id: id_brushResLst
+                anchors.fill: parent
+
+                onSelected: {
+                    id_textFieldSearch.text += id_brushResLst.p_curChar
+                }
+            }
+        }
+
+        Rectangle {
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.width * 0.1
+            color: "transparent"
+
+            Text {
+                anchors.centerIn: parent
+
+                text: qsTr("Clear")
+                font.family: "Helvetica"
+                font.pointSize: parent.height * 0.5
+                color: "white"
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        id_brusharea.isReset = true
+                        mycanvas.requestPaint()
+                        id_brushResLst.clearList()
+                    }
+                }
+            }
+
+        }
+
+        Rectangle {
+            anchors.centerIn: parent
+            width: parent.width * 0.8
+            height: width
+
+            Canvas {
+                id: mycanvas
+                property int prevX
+                property int prevY
+                property color drawColor: "black"
+                property int numberOfStroke: 0
+                property bool isReleased: false
+                anchors {
+                    left: parent.left
+                    top: parent.top
+                }
+                width: Math.floor(parent.width)
+                height: Math.floor(parent.height)
+
+                MouseArea {
+                    id:mousearea
+                    anchors.fill: parent
+                    onPressed: {
+                        mycanvas.prevX = mouseX
+                        mycanvas.prevY = mouseY
+                        mycanvas.isReleased = false
+                    }
+                    onReleased: {
+                        mycanvas.isReleased = true
+                        mycanvas.requestPaint()
+                    }
+                    onPositionChanged: {
+                        mycanvas.requestPaint()
+                    }
+
+                }
+
+                onPaint: {
+                    if (id_brusharea.isReset == true) {
+                        mycanvas.numberOfStroke = 0
+                        id_brusharea.isReset = false
+                        var ctx = getContext("2d");
+                        ctx.reset();
+                    }
+                    else {
+                        var ctx = getContext('2d')
+                        ctx.beginPath()
+                        ctx.strokeStyle = drawColor
+                        ctx.lineWidth = mycanvas.height * 0.025
+                        ctx.moveTo(mycanvas.prevX, mycanvas.prevY)
+                        ctx.lineTo(mousearea.mouseX, mousearea.mouseY)
+                        ctx.stroke()
+                        ctx.closePath()
+                        mycanvas.prevX = mousearea.mouseX
+                        mycanvas.prevY = mousearea.mouseY
+
+                        if (mycanvas.isReleased == true) {
+                            mycanvas.numberOfStroke++
+                            console.log("Count stroke: " + mycanvas.numberOfStroke)
+
+                            var white_pixels = 0
+                            var left = -1
+                            var top = -1
+                            var right = -1
+                            var bottom = -1
+
+                            var ar = ctx.getImageData(0, 0, width, height);
+                            var line_data
+                            for( var rw=0; rw < height; rw++ ) {
+                                line_data = ""
+                                for( var cl=0; cl < width; cl++ ) {
+                                    if (cl != 0) line_data += "\t"
+                                    if((ar.data[rw * width * 4 + cl * 4 + 0] !== 0) ||
+                                       (ar.data[rw * width * 4 + cl * 4 + 1] !== 0) ||
+                                       (ar.data[rw * width * 4 + cl * 4 + 2] !== 0) ||
+                                       (ar.data[rw * width * 4 + cl * 4 + 3] !== 0)
+                                       ) {
+                                        line_data += "255"
+                                        white_pixels++
+                                        if((left == -1) || (left > cl)) left = cl
+                                        if((right == -1) || (right < cl)) right = cl
+                                        if((top == -1) || (top > rw)) top = rw
+                                        if((bottom == -1) || (bottom < rw)) bottom = rw
+                                    }
+                                    else
+                                    {
+                                        line_data += "0";
+                                    }
+                                }
+                            }
+                            if (white_pixels == 0) white_pixels = 1
+
+                            var block_cols = 3
+                            var block_rows = 3
+                            var block_index = 0
+                            var sum_data = 0
+                            var feature_str = ""
+                            for (var i = 0; i < block_rows; i++) {
+                                for (var j = 0; j < block_cols; j++) {
+                                    var start_rows = top + i * Math.ceil((bottom - top) / block_rows)
+                                    var stop_rows = top + (i + 1) * Math.ceil((bottom - top) / block_rows)
+                                    var start_cols = left + j * Math.ceil((right - left) / block_cols)
+                                    var stop_cols = left + (j + 1) * Math.ceil((right - left) / block_cols)
+                                    var block_white = 0
+
+                                    for (var l = start_rows; l < stop_rows; l++) {
+                                        for (var m = start_cols; m < stop_cols; m++) {
+                                            if((ar.data[l * width * 4 + m * 4 + 0] !== 0) ||
+                                               (ar.data[l * width * 4 + m * 4 + 1] !== 0) ||
+                                               (ar.data[l * width * 4 + m * 4 + 2] !== 0) ||
+                                               (ar.data[l * width * 4 + m * 4 + 3] !== 0)
+                                                )
+                                                block_white++
+                                        }
+                                    }
+                                    var block_white_per = Math.floor(block_white * 100 / white_pixels)
+                                    if (feature_str === "") {
+                                        feature_str = block_white_per.toString()
+                                    }
+                                    else {
+                                        feature_str += ","
+                                        feature_str += block_white_per.toString()
+                                    }
+                                    sum_data += block_white
+                                }
+                            }
+
+                            // Detect characters
+                            var resultChar = myChaDet.detectCharacters(mycanvas.numberOfStroke + "," + feature_str)
+
+                            // Put data in GUI
+                            id_brushResLst.clearList()
+                            var separatelist = resultChar.split(",")
+                            for (var idx = 0; idx < separatelist.length; idx++) {
+                                id_brushResLst.addItem(separatelist[idx])
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // Store the list of search result
