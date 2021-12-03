@@ -45,6 +45,9 @@
  * [1.0.3]                                                                    *
  * Nov-21-2021: Fix Sql Connection Issue                                      *
  *              - Only add data to database when state is CWD_ADDING          *
+ * [1.0.4]                                                                    *
+ * Dec-03-2021: Fix Sql Database Add                                          *
+ *              - Do not read definition.txt when completed add database      *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -104,7 +107,7 @@ void CWD_DatabaseClass::run()
                         addWord(++count, strings[1], strings[0], strings[2], strings[3], strings[4]);
                     }
                 }
-            } else {
+            } else if (count != 110081) {
                 // This is second time add database
                 // Start reading all old lines
                 for (int i = 0; i < count; i++) {
