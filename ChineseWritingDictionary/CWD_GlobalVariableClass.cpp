@@ -40,6 +40,9 @@
  * [1.0.2]                                                                    *
  * Dec-03-2021: Support searching by Hanzi                                    *
  *              - Declara HANZI_TYPE                                          *
+ * [1.0.3]                                                                    *
+ * Dec-03-2021: Support searching by Pinyin                                   *
+ *              - Declara PINYIN_TYPE                                         *
  *****************************************************************************/
 
 #include "CWD_GlobalVariableClass.h"
@@ -53,3 +56,4 @@ QString CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE = "CWD_FTSdictionary";
 
 QString CWD_GlobalVariableClass::ENGLISH_TYPE = "English";
 QString CWD_GlobalVariableClass::HANZI_TYPE = "Chinese";
+QString CWD_GlobalVariableClass::PINYIN_TYPE = "Pinyin";

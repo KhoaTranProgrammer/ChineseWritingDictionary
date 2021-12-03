@@ -55,6 +55,10 @@
  * Dec-03-2021: Support Searching By Hanzi                                    *
  *              - Implement searchByHanzi function for Hanzi searching        *
  *              - Call searchByHanzi inside getWordMatches                    *
+ * [1.0.7]                                                                    *
+ * Dec-03-2021: Support Searching By Pinyin                                   *
+ *              - Add searchByPinyin function for Pinyin searching            *
+ *              - Call searchByPinyin inside getWordMatches                   *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -173,6 +177,8 @@ void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
             query = searchByEnglish(pattern);
         } else if ( type == CWD_GlobalVariableClass::HANZI_TYPE ) {
             query = searchByHanzi(pattern);
+        } else if ( type == CWD_GlobalVariableClass::PINYIN_TYPE ) {
+            query = searchByPinyin(pattern);
         }
 
         // Clear data
@@ -222,3 +228,51 @@ QSqlQuery CWD_DatabaseClass::searchByHanzi(QString pattern)
 
     return query;
 }
+
+QSqlQuery CWD_DatabaseClass::searchByPinyin(QString pattern)
+{
+    QSqlQuery query;
+
+    QStringList fields = pattern.split(" ");
+
+    if(fields.length() == 1) { //yi
+        query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + pattern + "]%'" + " OR " + //[yi]             //1
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + pattern + " %'" + " OR " + //[yi ...]         //2
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + pattern + "1%'" + " OR " + //[yi1...]         //3
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + pattern + "2%'" + " OR " + //[yi2...]         //4
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + pattern + "3%'" + " OR " + //[yi3...]         //5
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + pattern + "4%'" + " OR " + //[yi4...]         //6
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + pattern + "5%'" + " OR " + //[yi5...]         //7
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + pattern + "]'"  + " OR " + //[dang yi]        //8
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + pattern + " %'" + " OR " + //[dang yi ...]    //9
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + pattern + "1%'" + " OR " + //[dang yi1...]    //10
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + pattern + "2%'" + " OR " + //[dang yi2...]    //11
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + pattern + "3%'" + " OR " + //[dang yi3...]    //12
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + pattern + "4%'" + " OR " + //[dang yi4...]    //13
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + pattern + "5%'"            //[dang yi5...]    //14
+              );
+    } else if(fields.length() == 2) { //zao3 shang
+        query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + fields[0] + " "  + fields[1] + "%'" + " OR " + //[zao shang...]     //1
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + fields[0] + "1 " + fields[1] + "%'" + " OR " + //[zao1 shang...]    //2
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + fields[0] + "2 " + fields[1] + "%'" + " OR " + //[zao2 shang...]    //3
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + fields[0] + "3 " + fields[1] + "%'" + " OR " + //[zao3 shang...]    //4
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + fields[0] + "4 " + fields[1] + "%'" + " OR " + //[zao4 shang...]    //5
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%[" + fields[0] + "5 " + fields[1] + "%'" + " OR " + //[zao5 shang...]    //6
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + fields[0] + " "  + fields[1] + "%'" + " OR " + //[zao shang...]     //7
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + fields[0] + "1 " + fields[1] + "%'" + " OR " + //[zao1 shang...]    //8
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + fields[0] + "2 " + fields[1] + "%'" + " OR " + //[zao2 shang...]    //9
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + fields[0] + "3 " + fields[1] + "%'" + " OR " + //[zao3 shang...]    //10
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + fields[0] + "4 " + fields[1] + "%'" + " OR " + //[zao4 shang...]    //11
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'% " + fields[0] + "5 " + fields[1] + "%'" //[zao5 shang...]               //12
+              );
+    } else {
+        query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
+                 CWD_GlobalVariableClass::COL_PINYIN + " LIKE " + "'%" + pattern + "%'"
+              );
+    }
+
+    return query;
+}
+

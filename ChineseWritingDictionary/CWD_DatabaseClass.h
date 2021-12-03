@@ -47,6 +47,9 @@
  * [1.0.4]                                                                    *
  * Dec-03-2021: Support Searching By Hanzi                                    *
  *              - Add searchByHanzi function for Hanzi searching              *
+ * [1.0.5]                                                                    *
+ * Dec-03-2021: Support Searching By Pinyin                                   *
+ *              - Add searchByPinyin function for Pinyin searching            *
  *****************************************************************************/
 
 #ifndef CWD_DATABASECLASS_H
@@ -81,6 +84,7 @@ private:
     void addWord(int id, QString simplifyChi, QString traditionalChi, QString definition, QString engdef, QString vietdef);
     QSqlQuery searchByEnglish(QString pattern);
     QSqlQuery searchByHanzi(QString pattern);
+    QSqlQuery searchByPinyin(QString pattern);
 
     QSqlRelationalTableModel model;
     void run() override;

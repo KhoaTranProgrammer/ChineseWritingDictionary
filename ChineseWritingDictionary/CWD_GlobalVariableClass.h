@@ -40,6 +40,9 @@
  * [1.0.2]                                                                    *
  * Dec-03-2021: Support searching by Hanzi                                    *
  *              - Declara HANZI_TYPE                                          *
+ * [1.0.3]                                                                    *
+ * Dec-03-2021: Support searching by Pinyin                                   *
+ *              - Declara PINYIN_TYPE                                         *
  *****************************************************************************/
 
 #ifndef CWD_GLOBALVARIABLECLASS_H
@@ -62,6 +65,7 @@ public:
     // Search types
     static QString ENGLISH_TYPE;
     static QString HANZI_TYPE;
+    static QString PINYIN_TYPE;
 };
 
 #endif // CWD_GLOBALVARIABLECLASS_H
