@@ -48,6 +48,9 @@
  * [1.0.4]                                                                    *
  * Dec-03-2021: Fix Sql Database Add                                          *
  *              - Do not read definition.txt when completed add database      *
+ * [1.0.5]                                                                    *
+ * Dec-03-2021: Improve English Searching Result                              *
+ *              - Add more searching pattern type                             *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -194,7 +197,10 @@ QSqlQuery CWD_DatabaseClass::searchByEnglish(QString pattern)
     QSqlQuery query;
 
     query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
-                 CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'%/" + pattern + "/%'"
+                 CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'%/" + pattern + "/%'" + " OR " + // /Hello/
+                 CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'%/" + pattern + " %'" + " OR " + // /Hello (world)/
+                 CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'% " + pattern + "/%'" + " OR " + // / kitty/
+                 CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'% " + pattern + " %'"// / kitty /
               );
 
     return query;
