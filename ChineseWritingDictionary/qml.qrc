@@ -25,5 +25,9 @@
         <file>res/raw/chinese_letter.data</file>
         <file>res/img/ic_brush.png</file>
         <file>CWD_BrushResultList.qml</file>
+        <file>CWD_Help.qml</file>
+        <file>res/img/ic_help.png</file>
+        <file>CWD_HelpModel.qml</file>
+        <file>res/img/ic_cancel.png</file>
     </qresource>
 </RCC>
