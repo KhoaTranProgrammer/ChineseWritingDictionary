@@ -44,6 +44,9 @@
  * [1.0.3]                                                                    *
  * Nov-21-2021: Fix Sql Connection Issue                                      *
  *              - Add enum CWD_DBSTATE and variable mDBStatus                 *
+ * [1.0.4]                                                                    *
+ * Dec-03-2021: Support Searching By Hanzi                                    *
+ *              - Add searchByHanzi function for Hanzi searching              *
  *****************************************************************************/
 
 #ifndef CWD_DATABASECLASS_H
@@ -77,6 +80,7 @@ public slots:
 private:
     void addWord(int id, QString simplifyChi, QString traditionalChi, QString definition, QString engdef, QString vietdef);
     QSqlQuery searchByEnglish(QString pattern);
+    QSqlQuery searchByHanzi(QString pattern);
 
     QSqlRelationalTableModel model;
     void run() override;

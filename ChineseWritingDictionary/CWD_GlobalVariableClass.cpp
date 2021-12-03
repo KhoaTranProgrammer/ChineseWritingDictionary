@@ -37,6 +37,9 @@
  * [1.0.1]                                                                    *
  * Oct-02-2021: Support searching by English                                  *
  *              - Define ENGLISH_TYPE                                         *
+ * [1.0.2]                                                                    *
+ * Dec-03-2021: Support searching by Hanzi                                    *
+ *              - Declara HANZI_TYPE                                          *
  *****************************************************************************/
 
 #include "CWD_GlobalVariableClass.h"
@@ -49,3 +52,4 @@ QString CWD_GlobalVariableClass::COL_VIEMEAN = "vietmeaning";
 QString CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE = "CWD_FTSdictionary";
 
 QString CWD_GlobalVariableClass::ENGLISH_TYPE = "English";
+QString CWD_GlobalVariableClass::HANZI_TYPE = "Chinese";

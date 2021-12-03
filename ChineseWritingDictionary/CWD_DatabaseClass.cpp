@@ -51,6 +51,10 @@
  * [1.0.5]                                                                    *
  * Dec-03-2021: Improve English Searching Result                              *
  *              - Add more searching pattern type                             *
+ * [1.0.6]                                                                    *
+ * Dec-03-2021: Support Searching By Hanzi                                    *
+ *              - Implement searchByHanzi function for Hanzi searching        *
+ *              - Call searchByHanzi inside getWordMatches                    *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -167,6 +171,8 @@ void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
 
         if ( type == CWD_GlobalVariableClass::ENGLISH_TYPE ) {
             query = searchByEnglish(pattern);
+        } else if ( type == CWD_GlobalVariableClass::HANZI_TYPE ) {
+            query = searchByHanzi(pattern);
         }
 
         // Clear data
@@ -201,6 +207,17 @@ QSqlQuery CWD_DatabaseClass::searchByEnglish(QString pattern)
                  CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'%/" + pattern + " %'" + " OR " + // /Hello (world)/
                  CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'% " + pattern + "/%'" + " OR " + // / kitty/
                  CWD_GlobalVariableClass::COL_ENGMEAN + " LIKE " + "'% " + pattern + " %'"// / kitty /
+              );
+
+    return query;
+}
+
+QSqlQuery CWD_DatabaseClass::searchByHanzi(QString pattern)
+{
+    QSqlQuery query;
+
+    query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
+                 CWD_GlobalVariableClass::COL_CHINESE + " LIKE " + "'%" + pattern + "%'"
               );
 
     return query;

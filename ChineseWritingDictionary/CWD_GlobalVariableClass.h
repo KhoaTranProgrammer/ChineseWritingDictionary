@@ -37,6 +37,9 @@
  * [1.0.1]                                                                    *
  * Oct-02-2021: Support searching by English                                  *
  *              - Declare ENGLISH_TYPE                                        *
+ * [1.0.2]                                                                    *
+ * Dec-03-2021: Support searching by Hanzi                                    *
+ *              - Declara HANZI_TYPE                                          *
  *****************************************************************************/
 
 #ifndef CWD_GLOBALVARIABLECLASS_H
@@ -58,6 +61,7 @@ public:
 
     // Search types
     static QString ENGLISH_TYPE;
+    static QString HANZI_TYPE;
 };
 
 #endif // CWD_GLOBALVARIABLECLASS_H
