@@ -69,6 +69,9 @@
  * Dec-02-2021: Support Brush Hanzi Character                                 *
  *              - Add Area to support option functions                        *
  *              - Area to support brush hanzi character                       *
+ * [1.0.9]                                                                    *
+ * Dec-03-2021: Fix History Issue                                             *
+ *              - Change from addWord to addWordToHistory                     *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -235,12 +238,12 @@ Rectangle {
                 id_searchResultArea.enabled = false
 
                 // Add word to history
-                id_history.addWord(id_searchResult.p_hanzi,
-                                   id_searchResult.p_trad,
-                                   id_searchResult.p_pinyin,
-                                   id_searchResult.p_engMeaning,
-                                   id_searchResult.p_vietMeaning
-                                   )
+                id_historyDb.addWordToHistory(   id_searchResult.p_hanzi,
+                                                 id_searchResult.p_trad,
+                                                 id_searchResult.p_pinyin,
+                                                 id_searchResult.p_engMeaning,
+                                                 id_searchResult.p_vietMeaning
+                                             )
             }
         }
     }
@@ -273,7 +276,7 @@ Rectangle {
 
     // Add CWD_HistoryDatabase QML object
     CWD_HistoryDatabase {
-        id: id_history
+        id: id_historyDb
     }
     
     // Area to support option functions
