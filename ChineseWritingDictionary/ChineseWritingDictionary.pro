@@ -62,7 +62,8 @@ SOURCES += \
     CWD_WritingCharacter.cpp \
     CWD_WritingImage.cpp \
     CWD_HistoryDatabase.cpp \
-    CWD_CharacterDetection.cpp
+    CWD_CharacterDetection.cpp \
+    CWD_RefinePinyin.cpp
 
 RESOURCES += qml.qrc
 
@@ -86,7 +87,8 @@ HEADERS += \
     CWD_WritingCharacter.h \
     CWD_WritingImage.h \
     CWD_HistoryDatabase.h \
-    CWD_CharacterDetection.h
+    CWD_CharacterDetection.h \
+    CWD_RefinePinyin.h
 
 debug {
   DEFINES += CWD_DEBUG

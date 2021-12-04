@@ -36,6 +36,9 @@
  *              - Load History/Delete History/View Detail                     *
  *              - Use CWD_SearchResult to show up history                     *
  *              - Use CWD_Detail.qml to show the detail                       *
+ * [1.0.1]                                                                    *
+ * Dec-04-2021: Support Refine Pinyin                                         *
+ *              - Call convert method while loading Historyord                *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -57,7 +60,7 @@ Item {
                 stringList = stringLines[i].split('\t')
                 id_listPlugins.append({"chinese_data": stringList[1],
                                        "traditional_data": stringList[0],
-                                       "pinyin_data": stringList[2],
+                                       "pinyin_data": myPyRe.convert(stringList[2]),
                                        "viet_data": stringList[3],
                                        "eng_data": stringList[4]
                                       })

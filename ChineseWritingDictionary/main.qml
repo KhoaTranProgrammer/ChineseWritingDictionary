@@ -72,6 +72,9 @@
  * [1.0.9]                                                                    *
  * Dec-03-2021: Fix History Issue                                             *
  *              - Change from addWord to addWordToHistory                     *
+ * [1.0.10]                                                                   *
+ * Dec-04-2021: Support Refine Pinyin                                         *
+ *              - Call convert method in function addOneRecord                *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -545,7 +548,7 @@ Rectangle {
     function addOneRecord(chinese_data, traditional_data, pinyin_data, viet_data, eng_data) {
         id_listPlugins.append({"chinese_data": chinese_data,
                                "traditional_data": traditional_data,
-                               "pinyin_data": pinyin_data,
+                               "pinyin_data": myPyRe.convert(pinyin_data),
                                "viet_data": viet_data,
                                "eng_data": eng_data
                               })

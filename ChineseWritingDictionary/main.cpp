@@ -50,6 +50,9 @@
  * [1.0.4]                                                                    *
  * Dec-02-2021: Support Brush Hanzi Character                                 *
  *              - Set Character Detection object                              *
+ * [1.0.5]                                                                    *
+ * Dec-04-2021: Support Refine Pinyin                                         *
+ *              - Set Pinyin Refine object                                    *
  *****************************************************************************/
 
 #include <QGuiApplication>
@@ -69,6 +72,7 @@
 #include "CWD_WritingImage.h"
 #include "CWD_HistoryDatabase.h"
 #include "CWD_CharacterDetection.h"
+#include "CWD_RefinePinyin.h"
 
 int main(int argc, char *argv[])
 {
@@ -102,6 +106,10 @@ int main(int argc, char *argv[])
     // Set Character Detection object
     CWD_CharacterDetection myChaDet;
     view.engine()->rootContext()->setContextProperty("myChaDet", &myChaDet);
+
+    // Set Pinyin Refine object
+    CWD_RefinePinyin myPyRe;
+    view.engine()->rootContext()->setContextProperty("myPyRe", &myPyRe);
 
     // Set application size
     view.setMinimumSize(QSize(720*0.75, 1080*0.75));
