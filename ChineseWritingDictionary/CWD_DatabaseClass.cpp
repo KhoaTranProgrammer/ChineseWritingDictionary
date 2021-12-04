@@ -63,6 +63,9 @@
  * Dec-04-2021: Support Searching By Vietnamese                               *
  *              - Add searchByVietnamese function for Vietnamese searching    *
  *              - Call searchByVietnamese inside getWordMatches               *
+ * [1.0.9]                                                                    *
+ * Dec-04-2021: Do Not Call To Add DB After Complete                          *
+ *              - Add mFinishedLoadDB variable to announce DB status          *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -139,6 +142,8 @@ void CWD_DatabaseClass::run()
                         addWord(++count, strings[1], strings[0], strings[2], strings[3], strings[4]);
                     }
                 }
+            } else { // In case the number is 110081, database is completely loaded
+                mFinishedLoadDB = true;
             }
             reader.close();
         }
@@ -204,9 +209,12 @@ void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
                                       );
         }
 
-        mDBStatus = CWD_ADDING;
-        QThread::msleep(1000);
-        this->start();
+        if (!mFinishedLoadDB)
+        {
+            mDBStatus = CWD_ADDING;
+            QThread::msleep(1000);
+            this->start();
+        }
     }
 }
 

@@ -53,6 +53,9 @@
  * [1.0.6]                                                                    *
  * Dec-04-2021: Support Searching By Vietnamese                               *
  *              - Add searchByVietnamese function for Vietnamese searching    *
+ * [1.0.7]                                                                    *
+ * Dec-04-2021: Do Not Call To Add DB After Complete                          *
+ *              - Add mFinishedLoadDB variable to announce DB status          *
  *****************************************************************************/
 
 #ifndef CWD_DATABASECLASS_H
@@ -95,6 +98,7 @@ private:
 
     QQuickItem* m_rootObject;
     CWD_DBSTATE mDBStatus = CWD_ADDING;
+    bool mFinishedLoadDB = false;
 };
 
 #endif // CWD_DATABASECLASS_H
