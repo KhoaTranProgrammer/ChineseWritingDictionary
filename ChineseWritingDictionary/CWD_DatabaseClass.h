@@ -50,6 +50,9 @@
  * [1.0.5]                                                                    *
  * Dec-03-2021: Support Searching By Pinyin                                   *
  *              - Add searchByPinyin function for Pinyin searching            *
+ * [1.0.6]                                                                    *
+ * Dec-04-2021: Support Searching By Vietnamese                               *
+ *              - Add searchByVietnamese function for Vietnamese searching    *
  *****************************************************************************/
 
 #ifndef CWD_DATABASECLASS_H
@@ -85,6 +88,7 @@ private:
     QSqlQuery searchByEnglish(QString pattern);
     QSqlQuery searchByHanzi(QString pattern);
     QSqlQuery searchByPinyin(QString pattern);
+    QSqlQuery searchByVietnamese(QString pattern);
 
     QSqlRelationalTableModel model;
     void run() override;

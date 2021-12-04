@@ -59,6 +59,10 @@
  * Dec-03-2021: Support Searching By Pinyin                                   *
  *              - Add searchByPinyin function for Pinyin searching            *
  *              - Call searchByPinyin inside getWordMatches                   *
+ * [1.0.8]                                                                    *
+ * Dec-04-2021: Support Searching By Vietnamese                               *
+ *              - Add searchByVietnamese function for Vietnamese searching    *
+ *              - Call searchByVietnamese inside getWordMatches               *
  *****************************************************************************/
 
 #include "CWD_DatabaseClass.h"
@@ -179,6 +183,8 @@ void CWD_DatabaseClass::getWordMatches(QString pattern, QString type)
             query = searchByHanzi(pattern);
         } else if ( type == CWD_GlobalVariableClass::PINYIN_TYPE ) {
             query = searchByPinyin(pattern);
+        } else if ( type == CWD_GlobalVariableClass::VIETNAMESE_TYPE ) {
+            query = searchByVietnamese(pattern);
         }
 
         // Clear data
@@ -276,3 +282,16 @@ QSqlQuery CWD_DatabaseClass::searchByPinyin(QString pattern)
     return query;
 }
 
+QSqlQuery CWD_DatabaseClass::searchByVietnamese(QString pattern)
+{
+    QSqlQuery query;
+
+    query.exec("SELECT * FROM " + CWD_GlobalVariableClass::FTS_VIRTUAL_TABLE + " WHERE " +
+                 CWD_GlobalVariableClass::COL_VIEMEAN + " LIKE " + "'%/" + pattern + "/%'" + " OR " +
+                 CWD_GlobalVariableClass::COL_VIEMEAN + " LIKE " + "'%/" + pattern + " %'" + " OR " +
+                 CWD_GlobalVariableClass::COL_VIEMEAN + " LIKE " + "'% " + pattern + "/%'" + " OR " +
+                 CWD_GlobalVariableClass::COL_VIEMEAN + " LIKE " + "'% " + pattern + " %'"
+              );
+
+    return query;
+}

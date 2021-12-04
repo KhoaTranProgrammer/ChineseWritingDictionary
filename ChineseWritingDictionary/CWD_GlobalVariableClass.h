@@ -39,10 +39,13 @@
  *              - Declare ENGLISH_TYPE                                        *
  * [1.0.2]                                                                    *
  * Dec-03-2021: Support searching by Hanzi                                    *
- *              - Declara HANZI_TYPE                                          *
+ *              - Declare HANZI_TYPE                                          *
  * [1.0.3]                                                                    *
  * Dec-03-2021: Support searching by Pinyin                                   *
- *              - Declara PINYIN_TYPE                                         *
+ *              - Declare PINYIN_TYPE                                         *
+ * [1.0.4]                                                                    *
+ * Dec-04-2021: Support searching by Vietnamese                               *
+ *              - Declare VIETNAMESE_TYPE                                     *
  *****************************************************************************/
 
 #ifndef CWD_GLOBALVARIABLECLASS_H
@@ -66,6 +69,7 @@ public:
     static QString ENGLISH_TYPE;
     static QString HANZI_TYPE;
     static QString PINYIN_TYPE;
+    static QString VIETNAMESE_TYPE;
 };
 
 #endif // CWD_GLOBALVARIABLECLASS_H
