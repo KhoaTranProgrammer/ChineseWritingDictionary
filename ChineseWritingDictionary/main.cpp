@@ -53,6 +53,10 @@
  * [1.0.5]                                                                    *
  * Dec-04-2021: Support Refine Pinyin                                         *
  *              - Set Pinyin Refine object                                    *
+ * [1.0.6]                                                                    *
+ * Dec-05-2021: Support Transition For Multi Languages                        *
+ *              - Register CWD_LanguageType QML Type                          *
+ *              - Set Translator object                                       *
  *****************************************************************************/
 
 #include <QGuiApplication>
@@ -73,11 +77,19 @@
 #include "CWD_HistoryDatabase.h"
 #include "CWD_CharacterDetection.h"
 #include "CWD_RefinePinyin.h"
+#include "CWD_LanguageType.h"
+#include "CWD_Translator.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc,argv);
     QQuickView view;
+
+    qmlRegisterType<CWD_LanguageType>("CWD_LanguageType", 1, 0, "CWD_LanguageType");
+
+    // Set Translator object
+    CWD_Translator mTrans(&app);
+    view.engine()->rootContext()->setContextProperty("mytrans", &mTrans);
 
     // Register CWD_WritingImage QML type
     qmlRegisterType<CWD_WritingImage>("CWD_WritingImage", 1, 0, "CWD_WritingImage");

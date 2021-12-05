@@ -42,11 +42,14 @@
  * [1.0.2]                                                                    *
  * Oct-10-2021: Add strokes display                                           *
  *              - Add Drawing Area, Add Timer to draw 1 stroke each 500ms     *
+ * [1.0.3]                                                                    *
+ * Dec-05-2021: Support Transition For Multi Languages                        *
+ *              - Apply qsTr function                                         *
+ *              - Declare text internally                                     *
  *****************************************************************************/
 
 import QtQuick 2.0
 import CWD_WritingImage 1.0
-import "res/str/String_GUI.js" as String_GUI
 
 Item {
     id: id_root
@@ -106,7 +109,7 @@ Item {
                 left: id_backButton.right
             }
 
-            text: qsTr(String_GUI.detail_title)
+            text: qsTr("Detail")
             font.family: "Helvetica"
             font.pointSize: parent.height / 2
             color: "white"
@@ -168,7 +171,7 @@ Item {
                 width: parent.width * 0.2
                 color: "#448AFF"
 
-                text: qsTr(String_GUI.detail_trad)
+                text: qsTr("Traditional")
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.3
             }
@@ -207,10 +210,10 @@ Item {
                     margins: parent.height * 0.1
                     verticalCenter: parent.verticalCenter
                 }
-                width: parent.width * 0.15
+                width: parent.width * 0.2
                 color: "#448AFF"
 
-                text: qsTr(String_GUI.detail_pinyin)
+                text: qsTr("Pinyin")
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.3
             }
@@ -252,7 +255,7 @@ Item {
                 height: parent.height * 0.3
                 color: "#448AFF"
 
-                text: qsTr(String_GUI.detail_vietnamese)
+                text: qsTr("Vietnamese Meaning")
                 font.family: "Helvetica"
                 font.pointSize: id_static_pinyin.font.pointSize
             }
@@ -296,7 +299,7 @@ Item {
                 height: parent.height * 0.3
                 color: "#448AFF"
 
-                text: qsTr(String_GUI.detail_english)
+                text: qsTr("English Meaning")
                 font.family: "Helvetica"
                 font.pointSize: id_static_pinyin.font.pointSize
             }
@@ -349,7 +352,7 @@ Item {
                 }
                 color: "white"
 
-                text: qsTr(String_GUI.detail_writing_title)
+                text: qsTr("How to write?")
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.5
             }

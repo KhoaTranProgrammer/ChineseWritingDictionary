@@ -25,46 +25,56 @@
 /******************************************************************************
  * PURPOSE                                                                    *
  ******************************************************************************
- * This file implements the control for user to view Help information         *
+ * This is tranlator class to support multi languages                         *
  *****************************************************************************/
 
 /******************************************************************************
  * VERSION HISTORY                                                            *
  ******************************************************************************
  * [1.0.0]                                                                    *
- * Dec-03-2021: Initial version                                               *
- *              - Define list of elements for searching                       *
- * [1.0.1]                                                                    *
  * Dec-05-2021: Support Transition For Multi Languages                        *
- *              - Apply qsTr function                                         *
- *              - Declare text internally                                     *
+ *              - Support English and Vietnamese                              *
  *****************************************************************************/
 
-import QtQuick 2.0
+#ifndef CWD_TRANSLATOR_H
+#define CWD_TRANSLATOR_H
 
-ListModel {
+#include <QObject>
+#include <QGuiApplication>
+#include <QQuickView>
+#include <QTranslator>
+#include "CWD_LanguageType.h"
 
-    ListElement {
-        title: qsTr("How to search by Chinese?")
-        picture: "res/img/ic_help.png"
-        method: qsTr("To search by Chinese, please select Search by Chinese mode\nType Chinese characters or draw character by using Brush button")
+class CWD_Translator : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QString emptyString READ getEmptyString NOTIFY languageChanged)
+
+public:
+    CWD_Translator(QGuiApplication* app) { mApp = app; }
+
+    QString getEmptyString() { return ""; }
+
+signals:
+    void languageChanged();
+
+public slots:
+    void updateLanguage(int lang){
+        switch(lang){
+        case CWD_LanguageType::VIE:
+            mTranslator.load("ChineseWritingDictionary_VIE", ":/translator");
+            mApp->installTranslator(&mTranslator);
+            break;
+        default:
+            mApp->removeTranslator(&mTranslator);
+            break;
+        }
+        emit languageChanged();
     }
 
-    ListElement {
-        title: qsTr("How to search by Pinyin?")
-        picture: "res/img/ic_help.png"
-        method: qsTr("To search by Pinyin, please select Search by Pinyin mode\nThe method to input Pinyin\nInitial + Final + Tone\nExample:\nTo look up 'bā': type 'ba1'\nTo look up 'bá': type 'ba2'\nTo look up 'bǎ': type 'ba3'\nTo look up 'bà': type 'ba4'\nTo look up 'le': type 'le5'\nTo look up 'nǚ': type 'nu:3'")
-    }
+private:
+    QGuiApplication* mApp;
+    QTranslator mTranslator;
+};
 
-    ListElement {
-        title: qsTr("How to search by English?")
-        picture: "res/img/ic_help.png"
-        method: qsTr("To search by English, please select Search by English mode")
-    }
-
-    ListElement {
-        title: qsTr("How to search by Vietnamese?")
-        picture: "res/img/ic_help.png"
-        method: qsTr("To search by Vietnamese, please select Search by Vietnamese mode\nTo look up more accuracy, please input Vietnamese exactly\nExample: Input \'bóng đá\' instead of \'bong da\'")
-    }
-}
+#endif // CWD_TRANSLATOR_H

@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>main.cpp</file>
-        <file>res/str/String_GUI.js</file>
         <file>res/img/ic_search.png</file>
         <file>CWD_SearchType.qml</file>
         <file>res/raw/definitions.txt</file>
@@ -29,5 +28,6 @@
         <file>res/img/ic_help.png</file>
         <file>CWD_HelpModel.qml</file>
         <file>res/img/ic_cancel.png</file>
+        <file>translator/ChineseWritingDictionary_VIE.qm</file>
     </qresource>
 </RCC>

@@ -35,24 +35,37 @@
  * Sep-26-2021: Initial version                                               *
  *              - Define Model and delegate for searching types               *
  *              - Load searching types from String_GUI.js                     *
+ * [1.0.1]                                                                    *
+ * Dec-05-2021: Support Transition For Multi Languages                        *
+ *              - Apply qsTr function                                         *
+ *              - Declare text internally                                     *
  *****************************************************************************/
 
 import QtQuick 2.0
-import "res/str/String_GUI.js" as String_GUI
 
 Item {
     id: id_root
 
-    property string p_curType: String_GUI.search_types[0]
-    property string p_textFieldGuide: String_GUI.search_types[1]
+    QtObject {
+        id: id_priv
+        property var search_types: [
+           qsTr("Chinese"), qsTr("Type Chinese Word"),
+           qsTr("Pinyin"), qsTr("Type Pinyin"),
+           qsTr("Vietnamese"), qsTr("Type Vietnamese Word"),
+           qsTr("English"), qsTr("Type English Word")
+        ]
+    }
+
+    property string p_curType: qsTr(id_priv.search_types[0])
+    property string p_textFieldGuide: qsTr(id_priv.search_types[1])
     signal selected
 
     // Load searching types when Component is in Completed state
     Component.onCompleted: {
-        id_listOfType.append({"type": String_GUI.search_types[0], "textFieldGuide": String_GUI.search_types[1]})
-        id_listOfType.append({"type": String_GUI.search_types[2], "textFieldGuide": String_GUI.search_types[3]})
-        id_listOfType.append({"type": String_GUI.search_types[4], "textFieldGuide": String_GUI.search_types[5]})
-        id_listOfType.append({"type": String_GUI.search_types[6], "textFieldGuide": String_GUI.search_types[7]})
+        id_listOfType.append({"type": id_priv.search_types[0], "textFieldGuide": id_priv.search_types[1]})
+        id_listOfType.append({"type": id_priv.search_types[2], "textFieldGuide": id_priv.search_types[3]})
+        id_listOfType.append({"type": id_priv.search_types[4], "textFieldGuide": id_priv.search_types[5]})
+        id_listOfType.append({"type": id_priv.search_types[6], "textFieldGuide": id_priv.search_types[7]})
     }
 
     // Background is set as transparent
@@ -87,7 +100,7 @@ Item {
                 Text {
                     anchors.centerIn: parent
 
-                    text: qsTr(type)
+                    text: qsTr(type) + mytrans.emptyString
                     font.family: "Helvetica"
                     font.pointSize: parent.height * 0.35
                     color: "white"
@@ -103,7 +116,7 @@ Item {
                     onClicked: {
                         if (type != id_bg.p_curType) {
                             id_root.p_curType = type
-                            id_root.p_textFieldGuide = textFieldGuide
+                            id_root.p_textFieldGuide = qsTr(textFieldGuide) + mytrans.emptyString
                             id_root.selected()
                         }
                     }

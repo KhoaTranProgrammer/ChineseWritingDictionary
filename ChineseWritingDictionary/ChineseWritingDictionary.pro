@@ -88,8 +88,12 @@ HEADERS += \
     CWD_WritingImage.h \
     CWD_HistoryDatabase.h \
     CWD_CharacterDetection.h \
-    CWD_RefinePinyin.h
+    CWD_RefinePinyin.h \
+    CWD_LanguageType.h \
+    CWD_Translator.h
 
 debug {
   DEFINES += CWD_DEBUG
 }
+
+TRANSLATIONS = translator/ChineseWritingDictionary_VIE.ts

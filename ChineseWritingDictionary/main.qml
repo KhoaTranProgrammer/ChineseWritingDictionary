@@ -75,12 +75,17 @@
  * [1.0.10]                                                                   *
  * Dec-04-2021: Support Refine Pinyin                                         *
  *              - Call convert method in function addOneRecord                *
+ * [1.0.11]                                                                   *
+ * Dec-05-2021: Support Transition For Multi Languages                        *
+ *              - Apply qsTr function                                         *
+ *              - Declare text internally                                     *
+ *              - Add ComboBox QML to select languages                        *
  *****************************************************************************/
 
 import QtQuick 2.9
 import QtQuick.Controls 1.4
 import CWD_HistoryDatabase 1.0
-import "res/str/String_GUI.js" as String_GUI
+import CWD_LanguageType 1.0
 
 Rectangle {
     id: id_root
@@ -107,7 +112,7 @@ Rectangle {
                 verticalCenter: parent.verticalCenter
             }
 
-            text: qsTr(String_GUI.app_title)
+            text: qsTr("Chinese Writing Dictionary") + mytrans.emptyString
             font.family: "Helvetica"
             font.pointSize: parent.height / 2
             color: "white"
@@ -156,6 +161,7 @@ Rectangle {
                 anchors.fill: parent
                 font.family: "Helvetica"
                 font.pointSize: parent.height / 2
+                placeholderText: qsTr(id_searchTypeArea.p_textFieldGuide) + mytrans.emptyString
 
                 onTextChanged: {
                     if( id_searchingTimer.running == false)
@@ -177,7 +183,7 @@ Rectangle {
             Text {
                 anchors.centerIn: parent
 
-                text: qsTr(String_GUI.search_title)
+                text: qsTr("Search by") + mytrans.emptyString
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.4
                 color: "white"
@@ -195,12 +201,10 @@ Rectangle {
             }
 
             onSelected: {
-                id_textFieldSearch.placeholderText = p_textFieldGuide
                 id_root.searchType = p_curType
             }
 
             Component.onCompleted: {
-                id_textFieldSearch.placeholderText = p_textFieldGuide
                 id_root.searchType = p_curType
             }
         }
@@ -373,7 +377,7 @@ Rectangle {
             Text {
                 anchors.centerIn: parent
 
-                text: qsTr("Clear")
+                text: qsTr("Clear") + mytrans.emptyString
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.5
                 color: "white"
@@ -530,6 +534,30 @@ Rectangle {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    ComboBox {
+        anchors {
+            right: parent.right
+            top: id_headerArea.top
+        }
+        width: parent.width * 0.2
+
+        textRole: "text"
+
+        model: [
+            { text: qsTr("English"), value: "ENG" },
+            { text: qsTr("VietNam"), value: "VIE" }
+        ]
+
+        // When an item is selected, update the backend.
+        onActivated: {
+            if (currentIndex == 0) {
+                mytrans.updateLanguage(CWD_LanguageType.VIE)
+            } else {
+                mytrans.updateLanguage(CWD_LanguageType.ENG)
             }
         }
     }

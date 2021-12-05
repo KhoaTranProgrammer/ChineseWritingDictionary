@@ -39,13 +39,26 @@
  * [1.0.1]                                                                    *
  * Nov-28-2021: Auto add information                                          *
  *              - Change the loop to auto adding information screen           *
+ * [1.0.2]                                                                    *
+ * Dec-05-2021: Support Transition For Multi Languages                        *
+ *              - Apply qsTr function                                         *
+ *              - Declare text internally                                     *
  *****************************************************************************/
 
 import QtQuick 2.0
-import "res/str/String_GUI.js" as String_GUI
 
 Item {
     id: id_root
+
+    QtObject {
+        id: id_priv
+        property var information_types: [
+            "ic_history.png", "CWD_History.qml",
+            "ic_radical.png", "CWD_Radical.qml",
+            "ic_info.png", "CWD_Introduction.qml",
+            "ic_help.png", "CWD_Help.qml"
+        ]
+    }
 
     property string p_qmlFile: ""
 
@@ -53,8 +66,8 @@ Item {
 
     // Load Information types when Component is in Completed state
     Component.onCompleted: {
-        for(var i = 0; i < String_GUI.information_types.length / 2; i++) {
-            id_listOfInformation.append({"img": String_GUI.information_types[i * 2], "qmlFile": String_GUI.information_types[i * 2 + 1]})
+        for(var i = 0; i < id_priv.information_types.length / 2; i++) {
+            id_listOfInformation.append({"img": id_priv.information_types[i * 2], "qmlFile": id_priv.information_types[i * 2 + 1]})
         }
     }
 

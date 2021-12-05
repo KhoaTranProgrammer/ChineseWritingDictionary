@@ -34,6 +34,10 @@
  * [1.0.0]                                                                    *
  * Dec-03-2021: Initial version                                               *
  *              - Load History/Delete History/View Detail                     *
+ * [1.0.1]                                                                    *
+ * Dec-05-2021: Support Transition For Multi Languages                        *
+ *              - Apply qsTr function                                         *
+ *              - Declare text internally                                     *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -125,7 +129,7 @@ Item {
                     spacing: 5
 
                     Text {
-                        text: title
+                        text: qsTr(title) + mytrans.emptyString
                         font.bold: true; font.pointSize: 16
                     }
                 }
@@ -145,7 +149,12 @@ Item {
                     contentHeight: methodText.height
                     clip: true
 
-                    Text { id: methodText; text: method; wrapMode: Text.WordWrap; width: details.width }
+                    Text {
+                        id: methodText
+                        text: qsTr(method) + mytrans.emptyString
+                        wrapMode: Text.WordWrap
+                        width: details.width
+                    }
                 }
 
             }
