@@ -67,6 +67,7 @@ SOURCES += \
 
 RESOURCES += qml.qrc
 RESOURCES += audio.qrc
+RESOURCES += data.qrc
 
 QT += sql
 

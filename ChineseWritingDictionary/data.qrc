@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/raw/chars.txt</file>
+        <file>res/raw/chinese_letter.data</file>
+        <file>res/raw/data</file>
+        <file>res/raw/definitions.txt</file>
+        <file>res/raw/header</file>
+    </qresource>
+</RCC>

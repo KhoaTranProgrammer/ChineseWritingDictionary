@@ -4,14 +4,10 @@
         <file>main.cpp</file>
         <file>res/img/ic_search.png</file>
         <file>CWD_SearchType.qml</file>
-        <file>res/raw/definitions.txt</file>
         <file>CWD_SearchResult.qml</file>
         <file>CWD_Detail.qml</file>
         <file>res/img/ic_arrow_back.png</file>
         <file>CWD_CharacterList.qml</file>
-        <file>res/raw/chars.txt</file>
-        <file>res/raw/data</file>
-        <file>res/raw/header</file>
         <file>CWD_SymbolList.qml</file>
         <file>res/img/ic_radical.png</file>
         <file>CWD_Information.qml</file>
@@ -21,7 +17,6 @@
         <file>CWD_History.qml</file>
         <file>res/img/ic_history.png</file>
         <file>res/img/ic_history_delete.png</file>
-        <file>res/raw/chinese_letter.data</file>
         <file>res/img/ic_brush.png</file>
         <file>CWD_BrushResultList.qml</file>
         <file>CWD_Help.qml</file>
