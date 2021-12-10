@@ -46,9 +46,14 @@
  * Dec-05-2021: Support Transition For Multi Languages                        *
  *              - Apply qsTr function                                         *
  *              - Declare text internally                                     *
+ * [1.0.4]                                                                    *
+ * Dec-10-2021: Support Audio For Pinyin                                      *
+ *              - Add SoundEffect QML Object for sound playback               *
+ *              - Refine Pinyin when display text only                        *
  *****************************************************************************/
 
 import QtQuick 2.0
+import QtMultimedia 5.9
 import CWD_WritingImage 1.0
 
 Item {
@@ -57,8 +62,11 @@ Item {
     property string p_hanzi
     property string p_trad
     property string p_pinyin
+    property string p_pinyinRefine
     property string p_vietMeaning
     property string p_engMeaning
+    property variant p_pinyinList
+    property int p_curIndex
 
     signal close()
 
@@ -228,9 +236,33 @@ Item {
                 width: parent.width * 0.2
                 color: "black"
 
-                text: id_root.p_pinyin
+                text: id_root.p_pinyinRefine
                 font.family: "Helvetica"
                 font.pointSize: parent.height * 0.3
+            }
+
+            Rectangle {
+                anchors {
+                    right: parent.right
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: height
+                color: "transparent"
+
+                // Image for button
+                Image {
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: 'res/img/ic_volume.png'
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: {
+                        id_soundTimer.start()
+                    }
+                }
             }
         }
 
@@ -426,6 +458,26 @@ Item {
         }
     }
 
+    SoundEffect {
+       id: id_playSound
+    }
+
+    Timer {
+        id: id_soundTimer
+        interval: 500
+        running: false
+        repeat: true
+        onTriggered: {
+            id_playSound.source = "res/audio/" + p_pinyinList[p_curIndex] + ".wav"
+            id_playSound.play()
+            p_curIndex++
+            if (p_curIndex === p_pinyinList.length) {
+                id_soundTimer.stop()
+                p_curIndex = 0
+            }
+        }
+    }
+
     // Function get characters that are supported to draw
     function initDetail() {
         // Read all hanzi characters from input
@@ -436,5 +488,10 @@ Item {
         for (var i = 0; i < supportedChars.length; i++) {
             id_ctrCharacterList.addItem(supportedChars[i])
         }
+
+        // Split pinyin data input: [Kai3 di4 Mao1]
+        var iStr = p_pinyin.substring(1, p_pinyin.length - 1)
+        p_pinyinList = iStr.split(" ")
+        p_curIndex = 0
     }
 }

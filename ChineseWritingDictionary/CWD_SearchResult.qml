@@ -34,6 +34,9 @@
  * [1.0.0]                                                                    *
  * Oct-02-2021: Initial version                                               *
  *              - Define Model and delegate for searching result              *
+ * [1.0.1]                                                                    *
+ * Dec-10-2021: Support Audio For Pinyin                                      *
+ *              - Refine Pinyin when display text only                        *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -124,7 +127,7 @@ Item {
                             left: parent.left
                             leftMargin: height * 0.2
                         }
-                        text: pinyin_data
+                        text: myPyRe.convert(pinyin_data)
                         font.family: "Helvetica"
                         font.pointSize: parent.height * 0.5
                     }

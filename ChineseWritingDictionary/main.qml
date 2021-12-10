@@ -80,6 +80,9 @@
  *              - Apply qsTr function                                         *
  *              - Declare text internally                                     *
  *              - Add ComboBox QML to select languages                        *
+ * [1.0.12]                                                                   *
+ * Dec-10-2021: Support Audio For Pinyin                                      *
+ *              - Do not Refine Pinyin in main.qml                            *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -238,6 +241,7 @@ Rectangle {
                 scene.p_hanzi = id_searchResult.p_hanzi
                 scene.p_trad = id_searchResult.p_trad
                 scene.p_pinyin = id_searchResult.p_pinyin
+                scene.p_pinyinRefine = myPyRe.convert(id_searchResult.p_pinyin)
                 scene.p_engMeaning = id_searchResult.p_engMeaning
                 scene.p_vietMeaning = id_searchResult.p_vietMeaning
                 scene.close.connect(closeLoader)
@@ -576,7 +580,7 @@ Rectangle {
     function addOneRecord(chinese_data, traditional_data, pinyin_data, viet_data, eng_data) {
         id_listPlugins.append({"chinese_data": chinese_data,
                                "traditional_data": traditional_data,
-                               "pinyin_data": myPyRe.convert(pinyin_data),
+                               "pinyin_data": pinyin_data,
                                "viet_data": viet_data,
                                "eng_data": eng_data
                               })

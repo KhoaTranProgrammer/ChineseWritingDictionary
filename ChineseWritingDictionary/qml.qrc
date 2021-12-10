@@ -29,5 +29,6 @@
         <file>CWD_HelpModel.qml</file>
         <file>res/img/ic_cancel.png</file>
         <file>translator/ChineseWritingDictionary_VIE.qm</file>
+        <file>res/img/ic_volume.png</file>
     </qresource>
 </RCC>

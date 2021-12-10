@@ -39,6 +39,9 @@
  * [1.0.1]                                                                    *
  * Dec-04-2021: Support Refine Pinyin                                         *
  *              - Call convert method while loading Historyord                *
+ * [1.0.2]                                                                    *
+ * Dec-10-2021: Support Audio For Pinyin                                      *
+ *              - Do not Refine Pinyin while loading Historyord               *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -60,7 +63,7 @@ Item {
                 stringList = stringLines[i].split('\t')
                 id_listPlugins.append({"chinese_data": stringList[1],
                                        "traditional_data": stringList[0],
-                                       "pinyin_data": myPyRe.convert(stringList[2]),
+                                       "pinyin_data": stringList[2],
                                        "viet_data": stringList[3],
                                        "eng_data": stringList[4]
                                       })
@@ -174,6 +177,7 @@ Item {
                 scene.p_hanzi = id_searchResult.p_hanzi
                 scene.p_trad = id_searchResult.p_trad
                 scene.p_pinyin = id_searchResult.p_pinyin
+                scene.p_pinyinRefine = myPyRe.convert(id_searchResult.p_pinyin)
                 scene.p_engMeaning = id_searchResult.p_engMeaning
                 scene.p_vietMeaning = id_searchResult.p_vietMeaning
                 scene.close.connect(closeLoader)

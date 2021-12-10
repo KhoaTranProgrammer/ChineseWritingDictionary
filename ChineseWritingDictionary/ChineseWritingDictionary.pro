@@ -41,7 +41,7 @@
 # *              Add CWD_DEBUG macro                                           *
 # *****************************************************************************/
 
-QT += quick
+QT += quick multimedia
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -66,6 +66,7 @@ SOURCES += \
     CWD_RefinePinyin.cpp
 
 RESOURCES += qml.qrc
+RESOURCES += audio.qrc
 
 QT += sql
 
