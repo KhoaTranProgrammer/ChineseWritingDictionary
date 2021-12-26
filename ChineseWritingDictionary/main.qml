@@ -83,6 +83,9 @@
  * [1.0.12]                                                                   *
  * Dec-10-2021: Support Audio For Pinyin                                      *
  *              - Do not Refine Pinyin in main.qml                            *
+ * [1.0.13]                                                                   *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -117,7 +120,7 @@ Rectangle {
 
             text: qsTr("Chinese Writing Dictionary") + mytrans.emptyString
             font.family: "Helvetica"
-            font.pointSize: parent.height / 2
+            font.pointSize: 20
             color: "white"
         }
     }
@@ -163,7 +166,7 @@ Rectangle {
                 id: id_textFieldSearch
                 anchors.fill: parent
                 font.family: "Helvetica"
-                font.pointSize: parent.height / 2
+                font.pointSize: 15
                 placeholderText: qsTr(id_searchTypeArea.p_textFieldGuide) + mytrans.emptyString
 
                 onTextChanged: {
@@ -188,7 +191,7 @@ Rectangle {
 
                 text: qsTr("Search by") + mytrans.emptyString
                 font.family: "Helvetica"
-                font.pointSize: parent.height * 0.4
+                font.pointSize: 15
                 color: "white"
             }
         }
@@ -383,7 +386,7 @@ Rectangle {
 
                 text: qsTr("Clear") + mytrans.emptyString
                 font.family: "Helvetica"
-                font.pointSize: parent.height * 0.5
+                font.pointSize: 20
                 color: "white"
 
                 MouseArea {

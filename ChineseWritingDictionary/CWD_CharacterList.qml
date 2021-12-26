@@ -34,6 +34,9 @@
  * [1.0.0]                                                                    *
  * Oct-04-2021: Initial version                                               *
  *              - Define Model and delegate for list of display characters    *
+ * [1.0.1]                                                                    *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -72,7 +75,7 @@ Item {
 
                     text: character
                     font.family: "Helvetica"
-                    font.pointSize: parent.height * 0.5
+                    font.pointSize: 15
                 }
 
                 MouseArea {

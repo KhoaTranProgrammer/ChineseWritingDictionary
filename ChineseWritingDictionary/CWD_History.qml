@@ -42,6 +42,9 @@
  * [1.0.2]                                                                    *
  * Dec-10-2021: Support Audio For Pinyin                                      *
  *              - Do not Refine Pinyin while loading Historyord               *
+ * [1.0.3]                                                                    *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -64,8 +67,8 @@ Item {
                 id_listPlugins.append({"chinese_data": stringList[1],
                                        "traditional_data": stringList[0],
                                        "pinyin_data": stringList[2],
-                                       "viet_data": stringList[3],
-                                       "eng_data": stringList[4]
+                                       "viet_data": stringList[4],
+                                       "eng_data": stringList[3]
                                       })
             }
         }

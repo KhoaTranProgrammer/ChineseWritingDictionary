@@ -39,6 +39,9 @@
  * Dec-05-2021: Support Transition For Multi Languages                        *
  *              - Apply qsTr function                                         *
  *              - Declare text internally                                     *
+ * [1.0.2]                                                                    *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -102,7 +105,7 @@ Item {
 
                     text: qsTr(type) + mytrans.emptyString
                     font.family: "Helvetica"
-                    font.pointSize: parent.height * 0.35
+                    font.pointSize: 15
                     color: "white"
                 }
 

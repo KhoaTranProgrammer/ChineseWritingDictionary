@@ -39,6 +39,9 @@
  * Dec-05-2021: Support Transition For Multi Languages                        *
  *              - Apply qsTr function                                         *
  *              - Declare text internally                                     *
+ * [1.0.2]                                                                    *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -109,7 +112,7 @@ Item {
                       "\nGuides to write for more than 5000 Chinese characters." +
                       "\n\nIf you have any comment/concern, please contact us via: tudienchuviettienghoa@gmail.com")
             font.family: "Helvetica"
-            font.pointSize: parent.height * 0.02
+            font.pointSize: 12
             wrapMode: Text.Wrap
         }
     }

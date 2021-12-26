@@ -50,6 +50,9 @@
  * Dec-10-2021: Support Audio For Pinyin                                      *
  *              - Add SoundEffect QML Object for sound playback               *
  *              - Refine Pinyin when display text only                        *
+ * [1.0.5]                                                                    *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -119,7 +122,7 @@ Item {
 
             text: qsTr("Detail")
             font.family: "Helvetica"
-            font.pointSize: parent.height / 2
+            font.pointSize: 20
             color: "white"
         }
     }
@@ -141,7 +144,7 @@ Item {
 
             text: id_root.p_hanzi
             font.family: "Helvetica"
-            font.pointSize: parent.height * 0.7
+            font.pointSize: 20
             color: "black"
         }
     }
@@ -155,7 +158,7 @@ Item {
             left: parent.left
             right: parent.right
         }
-        height: (parent.height - (id_hanziArea.height + id_headerArea.height)) * 0.5
+        height: (parent.height - (id_hanziArea.height + id_headerArea.height)) * 0.45
         color: "#B3E5FC"
 
         Rectangle {
@@ -181,22 +184,20 @@ Item {
 
                 text: qsTr("Traditional")
                 font.family: "Helvetica"
-                font.pointSize: parent.height * 0.3
+                font.pointSize: 12
             }
 
             Text {
                 id: id_text_trad
                 anchors {
-                    left: id_static_trad.right
-                    margins: parent.height * 0.1
                     verticalCenter: parent.verticalCenter
+                    horizontalCenter: parent.horizontalCenter
                 }
-                width: parent.width * 0.2
                 color: "black"
 
                 text: id_root.p_trad
                 font.family: "Helvetica"
-                font.pointSize: parent.height * 0.7
+                font.pointSize: 15
             }
         }
 
@@ -223,7 +224,7 @@ Item {
 
                 text: qsTr("Pinyin")
                 font.family: "Helvetica"
-                font.pointSize: parent.height * 0.3
+                font.pointSize: 12
             }
 
             Text {
@@ -238,7 +239,7 @@ Item {
 
                 text: id_root.p_pinyinRefine
                 font.family: "Helvetica"
-                font.pointSize: parent.height * 0.3
+                font.pointSize: 12
             }
 
             Rectangle {
@@ -305,7 +306,7 @@ Item {
 
                 text: id_root.p_vietMeaning
                 font.family: "Helvetica"
-                font.pointSize: id_static_pinyin.font.pointSize * 0.7
+                font.pointSize: id_static_pinyin.font.pointSize
                 wrapMode: Text.Wrap
             }
         }
@@ -349,7 +350,7 @@ Item {
 
                 text: id_root.p_engMeaning
                 font.family: "Helvetica"
-                font.pointSize: id_static_pinyin.font.pointSize * 0.7
+                font.pointSize: id_static_pinyin.font.pointSize
                 wrapMode: Text.Wrap
             }
         }
@@ -363,8 +364,8 @@ Item {
             top: id_meaningArea.bottom
             left: parent.left
             right: parent.right
-            bottom: parent.bottom
         }
+        height: (parent.height - (id_hanziArea.height + id_headerArea.height)) * 0.45
         color: "#B3E5FC"
 
         Rectangle {
@@ -386,7 +387,7 @@ Item {
 
                 text: qsTr("How to write?")
                 font.family: "Helvetica"
-                font.pointSize: parent.height * 0.5
+                font.pointSize: 15
             }
         }
 

@@ -37,6 +37,9 @@
  * [1.0.1]                                                                    *
  * Dec-10-2021: Support Audio For Pinyin                                      *
  *              - Refine Pinyin when display text only                        *
+ * [1.0.2]                                                                    *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -88,7 +91,7 @@ Item {
                         anchors.centerIn: parent
                         text: chinese_data
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.5
+                        font.pointSize: 20
                         font.bold: parent.height
                     }
                 }
@@ -107,7 +110,7 @@ Item {
                         anchors.centerIn: parent
                         text: traditional_data
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.5
+                        font.pointSize: 20
                         font.bold: parent.height
                     }
                 }
@@ -129,7 +132,7 @@ Item {
                         }
                         text: myPyRe.convert(pinyin_data)
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.5
+                        font.pointSize: 12
                     }
                 }
 
@@ -150,7 +153,7 @@ Item {
                         }
                         text: viet_data
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.5
+                        font.pointSize: 12
                     }
                 }
 
@@ -171,7 +174,7 @@ Item {
                         }
                         text: eng_data
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.5
+                        font.pointSize: 12
                     }
                 }
 

@@ -39,6 +39,9 @@
  * Dec-05-2021: Support Transition For Multi Languages                        *
  *              - Apply qsTr function                                         *
  *              - Declare text internally                                     *
+ * [1.0.2]                                                                    *
+ * Dec-26-2021: Support Android Display                                       *
+ *              - Update QML Text font pointSize to static                    *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -225,7 +228,7 @@ Item {
                         anchors.centerIn: parent
                         text: index
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.3
+                        font.pointSize: 12
                     }
                 }
 
@@ -243,7 +246,7 @@ Item {
                         anchors.centerIn: parent
                         text: radicalChar
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.4
+                        font.pointSize: 15
                         font.bold: parent.height
                     }
                 }
@@ -262,7 +265,7 @@ Item {
                         anchors.centerIn: parent
                         text: stroke
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.3
+                        font.pointSize: 12
                     }
                 }
 
@@ -280,7 +283,7 @@ Item {
                         anchors.centerIn: parent
                         text: pinyin
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.3
+                        font.pointSize: 12
                     }
                 }
 
@@ -298,7 +301,7 @@ Item {
                         anchors.centerIn: parent
                         text: qsTr(meaning) + mytrans.emptyString
                         font.family: "Helvetica"
-                        font.pointSize: parent.height * 0.3
+                        font.pointSize: 12
                     }
                 }
             }
