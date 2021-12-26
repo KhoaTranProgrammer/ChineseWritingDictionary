@@ -86,6 +86,9 @@
  * [1.0.13]                                                                   *
  * Dec-26-2021: Support Android Display                                       *
  *              - Update QML Text font pointSize to static                    *
+ * [1.0.14]                                                                   *
+ * Dec-26-2021: Fix Index Of Language Type                                    *
+ *              - VIE: 1 - ENG: 0                                             *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -561,7 +564,7 @@ Rectangle {
 
         // When an item is selected, update the backend.
         onActivated: {
-            if (currentIndex == 0) {
+            if (currentIndex == 1) {
                 mytrans.updateLanguage(CWD_LanguageType.VIE)
             } else {
                 mytrans.updateLanguage(CWD_LanguageType.ENG)
