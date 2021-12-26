@@ -39,6 +39,9 @@
 # *              - Add CWD_DatabaseClass, CWD_GlobalVariableClass              *
 # *              - Add sql library                                             *
 # *              Add CWD_DEBUG macro                                           *
+# * [1.0.2]                                                                    *
+# * Dec-27-2021: Support Build For Android                                     *
+# *              - Add Android build folder                                    *
 # *****************************************************************************/
 
 QT += quick multimedia
@@ -99,3 +102,17 @@ debug {
 }
 
 TRANSLATIONS = translator/ChineseWritingDictionary_VIE.ts
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
+}
