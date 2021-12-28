@@ -89,6 +89,9 @@
  * [1.0.14]                                                                   *
  * Dec-26-2021: Fix Index Of Language Type                                    *
  *              - VIE: 1 - ENG: 0                                             *
+ * [1.0.15]                                                                   *
+ * Dec-29-2021: Update Information GUI                                        *
+ *              - Change location of Information GUI from bottom to left      *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -226,7 +229,7 @@ Rectangle {
             left: parent.left
             right: parent.right
             top: id_searchBoxArea.bottom
-            bottom: id_informationArea.top
+            bottom: parent.bottom
         }
         color: "#B3E5FC"
 
@@ -270,10 +273,11 @@ Rectangle {
         id: id_informationArea
         anchors {
             left: parent.left
-            right: parent.right
-            bottom: parent.bottom
+            verticalCenter: parent.verticalCenter
         }
-        height: id_root.height * 0.1
+        width: id_root.width * 0.1
+        height: id_root.height * 0.3
+        color: "transparent"
 
         CWD_Information {
             id: id_information
@@ -348,7 +352,7 @@ Rectangle {
         id: id_brusharea
         property bool isReset: false
         anchors {
-            bottom: id_informationArea.top
+            bottom: parent.bottom
             horizontalCenter: id_root.horizontalCenter
         }
         width: id_root.width * 0.6

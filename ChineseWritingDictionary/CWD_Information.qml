@@ -43,6 +43,9 @@
  * Dec-05-2021: Support Transition For Multi Languages                        *
  *              - Apply qsTr function                                         *
  *              - Declare text internally                                     *
+ * [1.0.3]                                                                    *
+ * Dec-29-2021: Update Information GUI                                        *
+ *              - Change location of Information GUI from bottom to left      *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -89,13 +92,13 @@ Item {
         Item {
             id: id_delegateItem
 
-            height: id_root.height
-            width: id_root.width / id_listOfInformation.count
+            height: id_root.height / id_listOfInformation.count
+            width: height
 
             Rectangle {
                 id: id_bg
                 anchors.fill: parent
-                color: "white"
+                color: "transparent"
                 border.width: id_bg.height * 0.05
                 border.color: "#B3E5FC"
 
@@ -130,7 +133,7 @@ Item {
         contentWidth: parent.width
         clip: false
 
-        Row {
+        Column {
             anchors.fill: parent
             Repeater {
                 model: id_listOfInformation
