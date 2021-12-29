@@ -92,6 +92,10 @@
  * [1.0.15]                                                                   *
  * Dec-29-2021: Update Information GUI                                        *
  *              - Change location of Information GUI from bottom to left      *
+ * [1.0.16]                                                                   *
+ * Dec-29-2021: Update Brush Area                                             *
+ *              - Change location of Brush area                               *
+ *              - Remove counting black/white ratio                           *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -352,7 +356,7 @@ Rectangle {
         id: id_brusharea
         property bool isReset: false
         anchors {
-            bottom: parent.bottom
+            verticalCenter: parent.verticalCenter
             horizontalCenter: id_root.horizontalCenter
         }
         width: id_root.width * 0.6
@@ -467,77 +471,9 @@ Rectangle {
 
                         if (mycanvas.isReleased == true) {
                             mycanvas.numberOfStroke++
-                            console.log("Count stroke: " + mycanvas.numberOfStroke)
-
-                            var white_pixels = 0
-                            var left = -1
-                            var top = -1
-                            var right = -1
-                            var bottom = -1
-
-                            var ar = ctx.getImageData(0, 0, width, height);
-                            var line_data
-                            for( var rw=0; rw < height; rw++ ) {
-                                line_data = ""
-                                for( var cl=0; cl < width; cl++ ) {
-                                    if (cl != 0) line_data += "\t"
-                                    if((ar.data[rw * width * 4 + cl * 4 + 0] !== 0) ||
-                                       (ar.data[rw * width * 4 + cl * 4 + 1] !== 0) ||
-                                       (ar.data[rw * width * 4 + cl * 4 + 2] !== 0) ||
-                                       (ar.data[rw * width * 4 + cl * 4 + 3] !== 0)
-                                       ) {
-                                        line_data += "255"
-                                        white_pixels++
-                                        if((left == -1) || (left > cl)) left = cl
-                                        if((right == -1) || (right < cl)) right = cl
-                                        if((top == -1) || (top > rw)) top = rw
-                                        if((bottom == -1) || (bottom < rw)) bottom = rw
-                                    }
-                                    else
-                                    {
-                                        line_data += "0";
-                                    }
-                                }
-                            }
-                            if (white_pixels == 0) white_pixels = 1
-
-                            var block_cols = 3
-                            var block_rows = 3
-                            var block_index = 0
-                            var sum_data = 0
-                            var feature_str = ""
-                            for (var i = 0; i < block_rows; i++) {
-                                for (var j = 0; j < block_cols; j++) {
-                                    var start_rows = top + i * Math.ceil((bottom - top) / block_rows)
-                                    var stop_rows = top + (i + 1) * Math.ceil((bottom - top) / block_rows)
-                                    var start_cols = left + j * Math.ceil((right - left) / block_cols)
-                                    var stop_cols = left + (j + 1) * Math.ceil((right - left) / block_cols)
-                                    var block_white = 0
-
-                                    for (var l = start_rows; l < stop_rows; l++) {
-                                        for (var m = start_cols; m < stop_cols; m++) {
-                                            if((ar.data[l * width * 4 + m * 4 + 0] !== 0) ||
-                                               (ar.data[l * width * 4 + m * 4 + 1] !== 0) ||
-                                               (ar.data[l * width * 4 + m * 4 + 2] !== 0) ||
-                                               (ar.data[l * width * 4 + m * 4 + 3] !== 0)
-                                                )
-                                                block_white++
-                                        }
-                                    }
-                                    var block_white_per = Math.floor(block_white * 100 / white_pixels)
-                                    if (feature_str === "") {
-                                        feature_str = block_white_per.toString()
-                                    }
-                                    else {
-                                        feature_str += ","
-                                        feature_str += block_white_per.toString()
-                                    }
-                                    sum_data += block_white
-                                }
-                            }
 
                             // Detect characters
-                            var resultChar = myChaDet.detectCharacters(mycanvas.numberOfStroke + "," + feature_str)
+                            var resultChar = myChaDet.detectCharacters(mycanvas.numberOfStroke + "," + "0,0,0,0,0,0,0,0,0")
 
                             // Put data in GUI
                             id_brushResLst.clearList()
