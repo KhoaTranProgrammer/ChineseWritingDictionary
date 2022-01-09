@@ -13,3 +13,6 @@ Main functionalities:
 # Download
 + Android: https://play.google.com/store/apps/details?id=source.ChineseWritingDictionary
 + Windows: https://sushiapple.com/tag/cwd/
+
+![picture](https://github.com/KhoaTranProgrammer/ChineseWritingDictionary/blob/master/Overview.png)
+![picture](https://github.com/KhoaTranProgrammer/ChineseWritingDictionary/blob/master/Detail.png)
