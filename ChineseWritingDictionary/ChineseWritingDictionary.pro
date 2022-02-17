@@ -1,7 +1,7 @@
 #/*
 # * MIT License
 # *
-# * Copyright (c) 2021 KhoaTran Programmer
+# * Copyright (c) 2021-2022 KhoaTran Programmer
 # *
 # * Permission is hereby granted, free of charge, to any person obtaining a copy
 # * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,9 @@
 # * [1.0.2]                                                                    *
 # * Dec-27-2021: Support Build For Android                                     *
 # *              - Add Android build folder                                    *
+# * [1.0.3]                                                                    *
+# * Feb-17-2022: Support Display Radical And Number Of Strokes For Character   *
+# *              - Add class CWD_Radical                                       *
 # *****************************************************************************/
 
 QT += quick multimedia
@@ -59,6 +62,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CWD_Radical.cpp \
         main.cpp \
     CWD_DatabaseClass.cpp \
     CWD_GlobalVariableClass.cpp \
@@ -89,6 +93,7 @@ HEADERS += \
     CWD_DatabaseClass.h \
     CWD_GlobalVariableClass.h \
     CWD_Database.h \
+    CWD_Radical.h \
     CWD_WritingCharacter.h \
     CWD_WritingImage.h \
     CWD_HistoryDatabase.h \

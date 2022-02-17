@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 KhoaTran Programmer
+ * Copyright (c) 2021-2022 KhoaTran Programmer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,9 @@
  *              - Read data/character list/header                             *
  *              - Convert stroke to QImage with/without Accumulate            *
  *              - Set of slot and internal to process display strokes         *
+ * [1.0.1]                                                                    *
+ * Feb-17-2022: Support Display Radical And Number Of Strokes For Character   *
+ *              - Add getStrokes to get the number of stroke of 1 character   *
  *****************************************************************************/
 
 #ifndef CWD_WRITINGCHARACTER_H
@@ -84,6 +87,9 @@ public slots:
 
     // Get the status when 1 character finish drawing
     bool getOnePass();
+
+    // Get the number of stroke of 1 character
+    quint8 getStrokes(QString character);
 
 private:
     void convertBin2Byte(quint8* bin_symbol);

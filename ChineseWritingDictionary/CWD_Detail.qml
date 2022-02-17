@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 KhoaTran Programmer
+ * Copyright (c) 2021-2022 KhoaTran Programmer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,10 @@
  * [1.0.5]                                                                    *
  * Dec-26-2021: Support Android Display                                       *
  *              - Update QML Text font pointSize to static                    *
+ * [1.0.6]                                                                    *
+ * Feb-17-2022: Support Display Radical And Number Of Strokes For Character   *
+ *              - Add Radical and Strokes QML Text                            *
+ *              - Get radical and strokes information                         *
  *****************************************************************************/
 
 import QtQuick 2.0
@@ -409,6 +413,10 @@ Item {
                     myWriting.drawForOneCharacter(p_curChar)
                     id_ctrSymbolList.clearList()
                     id_drawingTimer.running = true
+
+                    // Get radical and strokes information
+                    id_radical_txt_value.text = myRadical.getRadical(p_curChar)
+                    id_strokes_txt_value.text = myWriting.getStrokes(p_curChar)
                 }
             }
         }
@@ -425,8 +433,55 @@ Item {
 
             CWD_WritingImage {
                 id: id_displayCharImage
-                anchors.centerIn: id_displayCharArea
-                anchors.fill: id_displayCharArea
+                anchors {
+                    left: parent.left
+                    bottom: parent.bottom
+                    top: parent.top
+                    margins: 10
+                }
+                width: height
+            }
+
+            Text {
+                id: id_radical_txt_static
+                anchors {
+                    left: id_displayCharImage.right
+                    top: parent.top
+                    leftMargin: 5
+                }
+                font.pointSize: 15
+                text: qsTr("Radical: ")
+            }
+
+            Text {
+                id: id_radical_txt_value
+                anchors {
+                    left: id_radical_txt_static.right
+                    top: parent.top
+                }
+                font.pointSize: 15
+                text: ""
+            }
+
+            Text {
+                id: id_strokes_txt_static
+                anchors {
+                    left: id_displayCharImage.right
+                    top: id_radical_txt_static.bottom
+                    leftMargin: 5
+                }
+                font.pointSize: 15
+                text: qsTr("Number of strokes: ")
+            }
+
+            Text {
+                id: id_strokes_txt_value
+                anchors {
+                    left: id_strokes_txt_static.right
+                    top: id_radical_txt_static.bottom
+                }
+                font.pointSize: 15
+                text: ""
             }
         }
 

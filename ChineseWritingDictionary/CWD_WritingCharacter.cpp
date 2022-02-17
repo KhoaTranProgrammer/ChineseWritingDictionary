@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 KhoaTran Programmer
+ * Copyright (c) 2021-2022 KhoaTran Programmer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,9 @@
  *              - Read data/character list/header                             *
  *              - Convert stroke to QImage with/without Accumulate            *
  *              - Set of slot and internal to process display strokes         *
+ * [1.0.1]                                                                    *
+ * Feb-17-2022: Support Display Radical And Number Of Strokes For Character   *
+ *              - Add getStrokes to get the number of stroke of 1 character   *
  *****************************************************************************/
 
 #include "CWD_WritingCharacter.h"
@@ -242,7 +245,7 @@ void CWD_WritingCharacter::readSymbolsOfOneCharacter(QString character)
     if(temp_pos != -1)
     {
         /* appear */
-        int symbols = mSymbols[temp_pos]; qDebug() << symbols;
+        int symbols = mSymbols[temp_pos];
 
         quint8** bin_image = (quint8**)malloc(symbols * sizeof(quint8*)); //the length of symbol in bit unit
         for (int i = 0; i < symbols; i++)
@@ -312,4 +315,18 @@ void CWD_WritingCharacter::drawForOneCharacter(QString character)
         // Reset Accump Image
         resetAccumImage();
     }
+}
+
+quint8 CWD_WritingCharacter::getStrokes(QString character)
+{
+    quint8 strokes = 0;
+
+    int temp_pos = mListOfChars.indexOf(character); //check input character appears in list of supported character or not
+
+    if(temp_pos != -1)
+    {
+        /* appear */
+        strokes = mSymbols[temp_pos];
+    }
+    return strokes;
 }

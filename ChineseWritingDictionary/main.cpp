@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 KhoaTran Programmer
+ * Copyright (c) 2021-2022 KhoaTran Programmer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,9 @@
  * Dec-05-2021: Support Transition For Multi Languages                        *
  *              - Register CWD_LanguageType QML Type                          *
  *              - Set Translator object                                       *
+ * [1.0.7]                                                                    *
+ * Feb-17-2022: Support Display Radical And Number Of Strokes For Character   *
+ *              - Set Radical object                                          *
  *****************************************************************************/
 
 #include <QGuiApplication>
@@ -79,6 +82,7 @@
 #include "CWD_RefinePinyin.h"
 #include "CWD_LanguageType.h"
 #include "CWD_Translator.h"
+#include "CWD_Radical.h"
 
 int main(int argc, char *argv[])
 {
@@ -122,6 +126,10 @@ int main(int argc, char *argv[])
     // Set Pinyin Refine object
     CWD_RefinePinyin myPyRe;
     view.engine()->rootContext()->setContextProperty("myPyRe", &myPyRe);
+
+    // Set Radical object
+    CWD_Radical myRadical;
+    view.engine()->rootContext()->setContextProperty("myRadical", &myRadical);
 
     // Set application size
     view.setMinimumSize(QSize(720*0.75, 1080*0.75));
