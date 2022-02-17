@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 KhoaTran Programmer
+ * Copyright (c) 2021-2022 KhoaTran Programmer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -96,6 +96,11 @@
  * Dec-29-2021: Update Brush Area                                             *
  *              - Change location of Brush area                               *
  *              - Remove counting black/white ratio                           *
+ * [2.0.0]                                                                    *
+ * Feb-17-2022: Update GUI                                                    *
+ *              - Move Information Area to right                              *
+ *              - Move Option Area to below Information Area                  *
+ *              - Change Clear button to black                                *
  *****************************************************************************/
 
 import QtQuick 2.9
@@ -276,7 +281,7 @@ Rectangle {
     Rectangle {
         id: id_informationArea
         anchors {
-            left: parent.left
+            right: parent.right
             verticalCenter: parent.verticalCenter
         }
         width: id_root.width * 0.1
@@ -309,7 +314,7 @@ Rectangle {
         id: id_optionarea
         anchors {
             right: id_root.right
-            verticalCenter: id_root.verticalCenter
+            top: id_informationArea.bottom
         }
         width: id_root.width * 0.1
         height: width
@@ -398,7 +403,7 @@ Rectangle {
                 text: qsTr("Clear") + mytrans.emptyString
                 font.family: "Helvetica"
                 font.pointSize: 20
-                color: "white"
+                color: "black"
 
                 MouseArea {
                     anchors.fill: parent
